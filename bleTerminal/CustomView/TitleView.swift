@@ -75,6 +75,22 @@ class TitleView: UIView {
             self.connectionButton.isHidden = true
             self.scanButton.isHidden = true
             
+            let menuItems = [
+                UIAction(title: "Settings", handler: { _ in }),
+                UIAction(title: "View More", handler: { _ in })
+            ]
+            self.menuButton.showsMenuAsPrimaryAction = true
+            self.menuButton.menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: menuItems)
+            
+        case "ConnectionViewController":
+            let menuItems = [
+                UIAction(title: "Clear", handler: { _ in }),
+                UIAction(title: "Settings", handler: { _ in }),
+                UIAction(title: "Send Log file", handler: { _ in }),
+                UIAction(title: "View More", handler: { _ in })
+            ]
+            self.menuButton.showsMenuAsPrimaryAction = true
+            self.menuButton.menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: menuItems)
         default:
             return
         }
@@ -90,12 +106,13 @@ class TitleView: UIView {
                          stopButtonAction: (() -> Void)? = nil,
                          menuButtonAction: (() -> Void)? = nil) {
         
-   
+        
         self.onDidTapBackButton = backButtonAction
         self.onDidTapConnectionButton = connectionButtonAction
         self.onDidTapScanButton = scanButtonAction
         self.onDidTapStopButton = stopButtonAction
         self.onDidTapMenuButton = menuButtonAction
+        
     }
     
     @objc func buttonActionHandler(_ sender: UIButton) {

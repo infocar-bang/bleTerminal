@@ -53,8 +53,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="owx-t3-AdB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Bo6-0Z-m7k"/>
-                    <constraint firstItem="owx-t3-AdB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="Fgz-hM-Vfo"/>
-                    <constraint firstAttribute="bottom" secondItem="owx-t3-AdB" secondAttribute="bottom" constant="4" id="mNI-JQ-OWv"/>
+                    <constraint firstItem="owx-t3-AdB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="Fgz-hM-Vfo"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="owx-t3-AdB" secondAttribute="bottom" constant="4" id="mNI-JQ-OWv"/>
                     <constraint firstAttribute="trailing" secondItem="owx-t3-AdB" secondAttribute="trailing" constant="10" id="pJg-93-UQp"/>
                 </constraints>
             </tableViewCellContentView>

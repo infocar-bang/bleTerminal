@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
         
         initTableViewCell()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -35,10 +35,7 @@ class MainViewController: UIViewController {
             // BLE scan start
         } stopButtonAction: {
             // BLE scan stop
-        } menuButtonAction: {
-            // show menu
         }
-
     }
     
     func initTableViewCell() {

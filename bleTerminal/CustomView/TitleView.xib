@@ -31,13 +31,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="400" height="100"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MrS-Kw-bse" userLabel="Back Button">
-                            <rect key="frame" x="0.0" y="0.0" width="27.333333333333332" height="100"/>
+                            <rect key="frame" x="0.0" y="0.0" width="27" height="100"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="chevron.backward" catalog="system"/>
                         </button>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="st1-w0-nFp">
-                            <rect key="frame" x="31.333333333333336" y="0.0" width="91.333333333333314" height="100"/>
+                            <rect key="frame" x="30.999999999999993" y="0.0" width="91.333333333333314" height="100"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="BLE Terminal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPL-Oa-DOY">
                                     <rect key="frame" x="0.0" y="0.0" width="91.333333333333329" height="58.666666666666664"/>
@@ -54,11 +54,11 @@
                             </subviews>
                         </stackView>
                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="4bL-CG-5dT">
-                            <rect key="frame" x="126.66666666666669" y="0.0" width="20" height="100"/>
+                            <rect key="frame" x="126.33333333333331" y="0.0" width="20" height="100"/>
                             <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </activityIndicatorView>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rbB-9V-cVp" userLabel="Connection Button">
-                            <rect key="frame" x="150.66666666666666" y="0.0" width="53" height="100"/>
+                            <rect key="frame" x="150.33333333333334" y="0.0" width="53" height="100"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain">
@@ -66,22 +66,22 @@
                             </buttonConfiguration>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="253" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQb-dF-oUd" userLabel="Scan Button">
-                            <rect key="frame" x="207.66666666666666" y="0.0" width="69.333333333333343" height="100"/>
+                            <rect key="frame" x="207.33333333333334" y="0.0" width="69.333333333333343" height="100"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" title="SCAN"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="253" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VIV-G1-aOE" userLabel="Stop Button">
-                            <rect key="frame" x="281" y="0.0" width="67.333333333333314" height="100"/>
+                            <rect key="frame" x="280.66666666666669" y="0.0" width="67.333333333333314" height="100"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" title="STOP"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y35-yc-dUy" userLabel="Menu Button">
-                            <rect key="frame" x="352.33333333333331" y="0.0" width="47.666666666666686" height="100"/>
+                            <rect key="frame" x="352" y="0.0" width="48" height="100"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" image="ellipsis" catalog="system"/>
+                            <buttonConfiguration key="configuration" style="plain" image="icon_menu"/>
                         </button>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="Rhp-PO-b3T"/>
@@ -102,7 +102,7 @@
     <resources>
         <image name="chevron.backward" catalog="system" width="97" height="128"/>
         <image name="cloud.fill" catalog="system" width="128" height="87"/>
-        <image name="ellipsis" catalog="system" width="128" height="37"/>
+        <image name="icon_menu" width="24" height="24"/>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
