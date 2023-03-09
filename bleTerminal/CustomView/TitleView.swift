@@ -65,9 +65,11 @@ class TitleView: UIView {
     }
     
     
-    func initView(from viewController: String) {
-        switch viewController {
-        case "MainViewController":
+    func initView(from viewControllerName: String, navigationController: UINavigationController) {
+        self.navigationController = navigationController
+        
+        switch viewControllerName {
+        case "Main":
             self.stackView.layoutMargins = UIEdgeInsets(top: .zero, left: 10, bottom: .zero, right: .zero)
             self.stackView.isLayoutMarginsRelativeArrangement = true
             self.connectionStateLabel.isHidden = true
@@ -76,13 +78,18 @@ class TitleView: UIView {
             self.scanButton.isHidden = true
             
             let menuItems = [
-                UIAction(title: "Settings", handler: { _ in }),
+                UIAction(title: "Settings", handler: { [weak self] _ in
+                    guard let self = self else { return }
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let settingsViewController = storyboard.instantiateViewController(withIdentifier: "SettingsViewController")
+                    self.navigationController?.pushViewController(settingsViewController, animated: true)
+                }),
                 UIAction(title: "View More", handler: { _ in })
             ]
             self.menuButton.showsMenuAsPrimaryAction = true
             self.menuButton.menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: menuItems)
             
-        case "ConnectionViewController":
+        case "Connection":
             let menuItems = [
                 UIAction(title: "Clear", handler: { _ in }),
                 UIAction(title: "Settings", handler: { _ in }),
@@ -91,6 +98,15 @@ class TitleView: UIView {
             ]
             self.menuButton.showsMenuAsPrimaryAction = true
             self.menuButton.menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: menuItems)
+            
+        case "Settings", "ViewMore":
+            self.titleLabel.text = viewControllerName
+            self.connectionStateLabel.isHidden = true
+            self.loadingIndicator.isHidden = true
+            self.connectionButton.isHidden = true
+            self.scanButton.isHidden = true
+            self.stopButton.isHidden = true
+            self.menuButton.isHidden = true
         default:
             return
         }
@@ -119,7 +135,8 @@ class TitleView: UIView {
         switch sender {
         case backButton:
             onDidTapBackButton?()
-            self.navigationController?.popViewController(animated: true)
+            guard let navigationController = self.navigationController else { return }
+            navigationController.popViewController(animated: true)
         case connectionButton:
             onDidTapConnectionButton?()
         case scanButton:

@@ -15,6 +15,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        initView()
         initTableViewCell()
     }
     
@@ -24,18 +25,14 @@ class MainViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        initView()
+    
         setBinding()
     }
     
     func initView() {
-        self.titleView.initView(from: self.nameString)
-        self.titleView.setButtonAction {
-            // BLE scan start
-        } stopButtonAction: {
-            // BLE scan stop
-        }
+        guard let navigationControllerInstance = self.navigationController else { return }
+        self.titleView.initView(from: self.nameString, navigationController: navigationControllerInstance)
+        self.titleView.setButtonAction(scanButtonAction: {}, stopButtonAction: {})
     }
     
     func initTableViewCell() {

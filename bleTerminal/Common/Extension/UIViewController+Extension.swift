@@ -10,6 +10,6 @@ import UIKit
 
 extension UIViewController {
     var nameString: String {
-        return String(describing: self.classForCoder)
+        return String(describing: self.classForCoder).replacingOccurrences(of: "ViewController", with: "")
     }
 }
