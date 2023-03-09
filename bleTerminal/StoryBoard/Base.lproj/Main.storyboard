@@ -43,16 +43,20 @@
                                 <rect key="frame" x="0.0" y="147" width="393" height="44"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" image="icon_bluetooth" translatesAutoresizingMaskIntoConstraints="NO" id="t1B-Rf-hDf">
-                                        <rect key="frame" x="0.0" y="0.0" width="232.66666666666666" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="O6k-Ny-Tc1"/>
+                                            <constraint firstAttribute="width" constant="44" id="aLJ-Qt-S51"/>
+                                        </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="Scan Device" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nNY-Ie-qZP">
-                                        <rect key="frame" x="240.66666666666666" y="0.0" width="94.333333333333343" height="44"/>
+                                        <rect key="frame" x="51.999999999999993" y="0.0" width="94.333333333333314" height="44"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" horizontalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="Vne-nj-bPs">
-                                        <rect key="frame" x="343" y="0.0" width="50" height="44"/>
+                                        <rect key="frame" x="154.33333333333337" y="0.0" width="238.66666666666663" height="44"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
                                 </subviews>
@@ -60,6 +64,13 @@
                                     <constraint firstAttribute="height" constant="44" id="xjp-ed-KLJ"/>
                                 </constraints>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WTP-Zq-QOU" userLabel="Separator Line">
+                                <rect key="frame" x="10" y="190" width="373" height="1"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="ECI-Kt-HfR"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="07Q-pI-OV2">
                                 <rect key="frame" x="0.0" y="191" width="393" height="627"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -78,10 +89,13 @@
                             <constraint firstAttribute="trailing" secondItem="6RN-QV-tSJ" secondAttribute="trailing" id="E6Z-VD-TMw"/>
                             <constraint firstItem="6RN-QV-tSJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ic5-5E-G9T"/>
                             <constraint firstItem="pan-kX-3re" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="KMV-nh-BLK"/>
+                            <constraint firstItem="6RN-QV-tSJ" firstAttribute="bottom" secondItem="WTP-Zq-QOU" secondAttribute="bottom" id="Sgj-cL-v8i"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="WTP-Zq-QOU" secondAttribute="trailing" constant="10" id="XXW-hD-7RF"/>
                             <constraint firstItem="6RN-QV-tSJ" firstAttribute="top" secondItem="pan-kX-3re" secondAttribute="bottom" id="hsJ-yE-qp2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="07Q-pI-OV2" secondAttribute="bottom" id="hxI-Ab-r3t"/>
                             <constraint firstItem="07Q-pI-OV2" firstAttribute="top" secondItem="6RN-QV-tSJ" secondAttribute="bottom" id="iEk-sI-BIn"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="07Q-pI-OV2" secondAttribute="trailing" id="nf9-4C-nQ2"/>
+                            <constraint firstItem="WTP-Zq-QOU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="pNH-Li-e1s"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="scv-r7-1wS"/>
@@ -97,6 +111,9 @@
     </scenes>
     <resources>
         <image name="icon_bluetooth" width="512" height="512"/>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

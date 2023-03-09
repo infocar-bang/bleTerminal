@@ -8,19 +8,33 @@
 import UIKit
 
 class BleListTableViewCell: UITableViewCell {
-
+    @IBOutlet weak var rssiLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var uuidLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        initView()
+        prepareForReuse()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func initView() {
+        rssiLabel.layer.cornerRadius = rssiLabel.frame.width / 2
+        rssiLabel.layer.masksToBounds = true
+    }
+    
+    func set() {
+        self.rssiLabel.text = "-90"
+        self.nameLabel.text = "Unnamed"
+        self.uuidLabel.text = "AE9C1DB0-48F1-4914-9940-85FE7AEEA1A3"
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        
+        self.rssiLabel.text = ""
+        self.nameLabel.text = ""
+        self.uuidLabel.text = ""
     }
 }

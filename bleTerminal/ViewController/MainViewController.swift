@@ -15,6 +15,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        initTableViewCell()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -41,9 +42,8 @@ class MainViewController: UIViewController {
     }
     
     func initTableViewCell() {
-        // 닙파일등록
-        let bleListCell = UINib(nibName: "BleListTableViewCell", bundle: nil)
-        self.bleTableView.register(bleListCell, forCellReuseIdentifier: "cell")
+        let cellNib = UINib(nibName: "BleListTableViewCell", bundle: Bundle(for: self.classForCoder))
+        self.bleTableView.register(cellNib, forCellReuseIdentifier: "cell")
     }
     
     func setBinding() {
@@ -54,11 +54,17 @@ class MainViewController: UIViewController {
 // MARK:- UITableViewDataSource
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return .zero
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? BleListTableViewCell else {
+            return UITableViewCell()
+        }
+        cell.set()
+        
+        return cell
     }
     
     
