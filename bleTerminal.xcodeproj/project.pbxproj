@@ -32,6 +32,7 @@
 		DEDB051229BACA7E0074885E /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEDB051029BACA7E0074885E /* SettingTableViewCell.xib */; };
 		DEDB051529BAEA1F0074885E /* SettingPopupItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDB051329BAEA1F0074885E /* SettingPopupItemTableViewCell.swift */; };
 		DEDB051629BAEA1F0074885E /* SettingPopupItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEDB051429BAEA1F0074885E /* SettingPopupItemTableViewCell.xib */; };
+		DEDB051829BAF3280074885E /* TerminalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDB051729BAF3280074885E /* TerminalViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		DEDB051029BACA7E0074885E /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		DEDB051329BAEA1F0074885E /* SettingPopupItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPopupItemTableViewCell.swift; sourceTree = "<group>"; };
 		DEDB051429BAEA1F0074885E /* SettingPopupItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingPopupItemTableViewCell.xib; sourceTree = "<group>"; };
+		DEDB051729BAF3280074885E /* TerminalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +185,7 @@
 			children = (
 				DE7EA48329B99B52006415D0 /* NavigationController.swift */,
 				DE04B17929B86C1500E49FA6 /* MainViewController.swift */,
+				DEDB051729BAF3280074885E /* TerminalViewController.swift */,
 				DEA35E8229B9D68C001BB9B3 /* SettingsViewController.swift */,
 				DEA35E9029BAC5CF001BB9B3 /* SettingPopupViewController.swift */,
 			);
@@ -383,6 +386,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DEDB051829BAF3280074885E /* TerminalViewController.swift in Sources */,
 				DE7EA48829B9A089006415D0 /* UIViewController+Extension.swift in Sources */,
 				DE04B17A29B86C1500E49FA6 /* MainViewController.swift in Sources */,
 				DE04B1AF29B8749200E49FA6 /* BleListTableViewCell.swift in Sources */,

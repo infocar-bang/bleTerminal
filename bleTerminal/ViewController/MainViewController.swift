@@ -45,7 +45,7 @@ class MainViewController: UIViewController {
     }
 }
 
-// MARK:- UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
@@ -61,9 +61,11 @@ extension MainViewController: UITableViewDataSource {
     }
 }
 
-// MARK:- UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // push TerminalView
+        guard let terminalViewController = self.storyboard?.instantiateViewController(withIdentifier: "TerminalViewController") else { return }
+        self.navigationController?.pushViewController(terminalViewController, animated: true)
     }
 }

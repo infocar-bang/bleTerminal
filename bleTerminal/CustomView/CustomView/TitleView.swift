@@ -18,12 +18,15 @@ class TitleView: UIView {
     @IBOutlet weak var connectionButton: UIButton!
     @IBOutlet weak var scanButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
+    @IBOutlet weak var dataTypeButton: UIButton!
     @IBOutlet weak var menuButton: UIButton!
+    
     
     var onDidTapBackButton: (() -> Void)?
     var onDidTapConnectionButton: (() -> Void)?
     var onDidTapScanButton: (() -> Void)?
     var onDidTapStopButton: (() -> Void)?
+    var onDidTapDataTypeButton: (() -> Void)?
     var onDidTapMenuButton: (() -> Void)?
     
     var navigationController: UINavigationController?
@@ -57,6 +60,7 @@ class TitleView: UIView {
             self.backButton.isHidden = true
             self.connectionButton.isHidden = true
             self.scanButton.isHidden = true
+            self.dataTypeButton.isHidden = true
             
             let menuItems = [
                 UIAction(title: "Settings", handler: { [weak self] _ in
@@ -70,7 +74,18 @@ class TitleView: UIView {
             self.menuButton.showsMenuAsPrimaryAction = true
             self.menuButton.menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: menuItems)
             
-        case "Connection":
+        case "Terminal":
+            self.loadingIndicator.isHidden = true
+            self.scanButton.isHidden = true
+            self.stopButton.isHidden = true
+            
+            let commandTypeItems = [
+                UIAction(title: "ASCII", handler: { _ in }),
+                UIAction(title: "HEX", handler: { _ in })
+            ]
+            self.dataTypeButton.showsMenuAsPrimaryAction = true
+            self.dataTypeButton.menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: commandTypeItems)
+            
             let menuItems = [
                 UIAction(title: "Clear", handler: { _ in }),
                 UIAction(title: "Settings", handler: { _ in }),
@@ -87,6 +102,7 @@ class TitleView: UIView {
             self.connectionButton.isHidden = true
             self.scanButton.isHidden = true
             self.stopButton.isHidden = true
+            self.dataTypeButton.isHidden = true
             self.menuButton.isHidden = true
         default:
             return
@@ -101,12 +117,14 @@ class TitleView: UIView {
                          connectionButtonAction: (() -> Void)? = nil,
                          scanButtonAction: (() -> Void)? = nil,
                          stopButtonAction: (() -> Void)? = nil,
+                         dataTypeButtonAction: (() -> Void)? = nil,
                          menuButtonAction: (() -> Void)? = nil) {
         
         self.onDidTapBackButton = backButtonAction
         self.onDidTapConnectionButton = connectionButtonAction
         self.onDidTapScanButton = scanButtonAction
         self.onDidTapStopButton = stopButtonAction
+        self.onDidTapDataTypeButton = dataTypeButtonAction
         self.onDidTapMenuButton = menuButtonAction
     }
     
@@ -128,6 +146,8 @@ class TitleView: UIView {
             self.scanButton.isHidden = false
             self.loadingIndicator.isHidden = true
             onDidTapStopButton?()
+        case dataTypeButton:
+            onDidTapDataTypeButton?()
         case menuButton:
             onDidTapMenuButton?()
         default: return
