@@ -20,8 +20,8 @@ class BleListTableViewCell: UITableViewCell {
     }
     
     func initView() {
-        rssiLabel.layer.cornerRadius = rssiLabel.frame.width / 2
-        rssiLabel.layer.masksToBounds = true
+        self.rssiLabel.layer.cornerRadius = rssiLabel.frame.width / 2
+        self.rssiLabel.layer.masksToBounds = true
     }
     
     func set() {

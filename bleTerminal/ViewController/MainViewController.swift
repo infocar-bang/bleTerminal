@@ -9,7 +9,7 @@ import UIKit
 
 class MainViewController: UIViewController {
     @IBOutlet weak var titleView: TitleView!
-    @IBOutlet weak var bleTableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,7 @@ class MainViewController: UIViewController {
     
     func initTableViewCell() {
         let cellNib = UINib(nibName: "BleListTableViewCell", bundle: Bundle(for: self.classForCoder))
-        self.bleTableView.register(cellNib, forCellReuseIdentifier: "cell")
+        self.tableView.register(cellNib, forCellReuseIdentifier: "cell")
     }
     
     func setBinding() {
@@ -52,7 +52,6 @@ extension MainViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? BleListTableViewCell else {
             return UITableViewCell()
         }
@@ -60,8 +59,6 @@ extension MainViewController: UITableViewDataSource {
         
         return cell
     }
-    
-    
 }
 
 // MARK:- UITableViewDelegate

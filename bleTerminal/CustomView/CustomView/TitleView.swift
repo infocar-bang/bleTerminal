@@ -46,25 +46,6 @@ class TitleView: UIView {
         loadNib()
     }
     
-    static var nibName: String {
-        get {
-            return String(describing: type(of: self))
-        }
-    }
-    
-    func loadNib() {
-        subviews.forEach({ $0.removeFromSuperview() })
-        let nibName = String(describing: type(of: self))
-        
-        guard Bundle(for: self.classForCoder).path(forResource: nibName, ofType: "nib") != nil else { return }
-        guard let view = Bundle(for: self.classForCoder).loadNibNamed(nibName, owner: self, options: nil)?.first(where: { $0 is UIView }) as? UIView else { return }
-        
-        view.frame = bounds
-        addSubview(view)
-        backgroundColor = .clear
-    }
-    
-    
     func initView(from viewControllerName: String, navigationController: UINavigationController) {
         self.navigationController = navigationController
         
@@ -122,13 +103,11 @@ class TitleView: UIView {
                          stopButtonAction: (() -> Void)? = nil,
                          menuButtonAction: (() -> Void)? = nil) {
         
-        
         self.onDidTapBackButton = backButtonAction
         self.onDidTapConnectionButton = connectionButtonAction
         self.onDidTapScanButton = scanButtonAction
         self.onDidTapStopButton = stopButtonAction
         self.onDidTapMenuButton = menuButtonAction
-        
     }
     
     @objc func buttonActionHandler(_ sender: UIButton) {
