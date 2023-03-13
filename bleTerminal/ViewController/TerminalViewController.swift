@@ -29,6 +29,7 @@ class TerminalViewController: UIViewController {
         super.viewDidLoad()
         
         initView()
+        initTableViewCell()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,6 +68,11 @@ class TerminalViewController: UIViewController {
         [ selectPropertiesButton, sendCommandButton ].forEach { button in
             button?.addTarget(self, action: #selector(buttonActionHandler), for: .touchUpInside)
         }
+    }
+    
+    func initTableViewCell() {
+        let cellNib = UINib(nibName: "TerminalCommandTableViewCell", bundle: Bundle(for: self.classForCoder))
+        self.tableView.register(cellNib, forCellReuseIdentifier: "cell")
     }
     
     func setBinding() {
@@ -126,10 +132,23 @@ extension TerminalViewController: UITextFieldDelegate {
 // MARK: -
 extension TerminalViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return .zero
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TerminalCommandTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        switch indexPath.row {
+        case 0:
+            cell.set(command: "yhugvvvvv dfdfadfea e aefakdfjlejalk e akdjf lakjf elakf ekldfafd")
+        case 1:
+            cell.set(command: "dafeflkajfehjakehfkeahfjkehakjefhkahfkeajhfkehfkeahfkaehfkeh")
+        default:
+            cell.set(command: "d")
+        }
+        
+        return cell
     }
 }
