@@ -30,6 +30,9 @@
 		DEA35E9129BAC5CF001BB9B3 /* SettingPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA35E9029BAC5CF001BB9B3 /* SettingPopupViewController.swift */; };
 		DED4CD3C29BEBE1600975C63 /* TerminalCommandTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4CD3A29BEBE1600975C63 /* TerminalCommandTableViewCell.swift */; };
 		DED4CD3D29BEBE1600975C63 /* TerminalCommandTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DED4CD3B29BEBE1600975C63 /* TerminalCommandTableViewCell.xib */; };
+		DED4CD4329BEE08300975C63 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4CD4229BEE08300975C63 /* MainViewModel.swift */; };
+		DED4CD4629BEE8FF00975C63 /* PeripheralDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4CD4529BEE8FF00975C63 /* PeripheralDevice.swift */; };
+		DED4CD4A29BF00E100975C63 /* BleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4CD4929BF00E100975C63 /* BleManager.swift */; };
 		DEDB051129BACA7E0074885E /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDB050F29BACA7E0074885E /* SettingTableViewCell.swift */; };
 		DEDB051229BACA7E0074885E /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEDB051029BACA7E0074885E /* SettingTableViewCell.xib */; };
 		DEDB051529BAEA1F0074885E /* SettingPopupItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDB051329BAEA1F0074885E /* SettingPopupItemTableViewCell.swift */; };
@@ -82,6 +85,9 @@
 		DEA35E9029BAC5CF001BB9B3 /* SettingPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPopupViewController.swift; sourceTree = "<group>"; };
 		DED4CD3A29BEBE1600975C63 /* TerminalCommandTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalCommandTableViewCell.swift; sourceTree = "<group>"; };
 		DED4CD3B29BEBE1600975C63 /* TerminalCommandTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TerminalCommandTableViewCell.xib; sourceTree = "<group>"; };
+		DED4CD4229BEE08300975C63 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		DED4CD4529BEE8FF00975C63 /* PeripheralDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralDevice.swift; sourceTree = "<group>"; };
+		DED4CD4929BF00E100975C63 /* BleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleManager.swift; sourceTree = "<group>"; };
 		DEDB050F29BACA7E0074885E /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		DEDB051029BACA7E0074885E /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		DEDB051329BAEA1F0074885E /* SettingPopupItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPopupItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -137,7 +143,9 @@
 		DE04B17429B86C1500E49FA6 /* bleTerminal */ = {
 			isa = PBXGroup;
 			children = (
+				DED4CD3E29BED7C000975C63 /* Util */,
 				DE7EA48529B9A05C006415D0 /* Common */,
+				DED4CD4429BEE8CD00975C63 /* Model */,
 				DE04B1AB29B86D2A00E49FA6 /* DataManager */,
 				DE04B1A929B86CD800E49FA6 /* StoryBoard */,
 				DE04B1AC29B873ED00E49FA6 /* CustomView */,
@@ -188,7 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				DE7EA48329B99B52006415D0 /* NavigationController.swift */,
-				DE04B17929B86C1500E49FA6 /* MainViewController.swift */,
+				DED4CD4129BEE07100975C63 /* Main */,
 				DEDB051729BAF3280074885E /* TerminalViewController.swift */,
 				DEA35E8229B9D68C001BB9B3 /* SettingsViewController.swift */,
 				DEA35E9029BAC5CF001BB9B3 /* SettingPopupViewController.swift */,
@@ -254,6 +262,31 @@
 				DE04B1B529B976B500E49FA6 /* TitleView.xib */,
 			);
 			path = CustomView;
+			sourceTree = "<group>";
+		};
+		DED4CD3E29BED7C000975C63 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				DED4CD4929BF00E100975C63 /* BleManager.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		DED4CD4129BEE07100975C63 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				DE04B17929B86C1500E49FA6 /* MainViewController.swift */,
+				DED4CD4229BEE08300975C63 /* MainViewModel.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		DED4CD4429BEE8CD00975C63 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DED4CD4529BEE8FF00975C63 /* PeripheralDevice.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -405,10 +438,13 @@
 				DE7EA48429B99B52006415D0 /* NavigationController.swift in Sources */,
 				DEA35E8629BAB24C001BB9B3 /* SettingTableViewSwitchCell.swift in Sources */,
 				DEDB051129BACA7E0074885E /* SettingTableViewCell.swift in Sources */,
+				DED4CD4629BEE8FF00975C63 /* PeripheralDevice.swift in Sources */,
 				DE04B18029B86C1500E49FA6 /* bleTerminal.xcdatamodeld in Sources */,
 				DE04B1B829B976C200E49FA6 /* TitleView.swift in Sources */,
 				DEA35E9129BAC5CF001BB9B3 /* SettingPopupViewController.swift in Sources */,
+				DED4CD4A29BF00E100975C63 /* BleManager.swift in Sources */,
 				DEA35E8329B9D68C001BB9B3 /* SettingsViewController.swift in Sources */,
+				DED4CD4329BEE08300975C63 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

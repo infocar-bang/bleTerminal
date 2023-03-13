@@ -24,10 +24,10 @@ class BleListTableViewCell: UITableViewCell {
         self.rssiLabel.layer.masksToBounds = true
     }
     
-    func set() {
-        self.rssiLabel.text = "-90"
-        self.nameLabel.text = "Unnamed"
-        self.uuidLabel.text = "AE9C1DB0-48F1-4914-9940-85FE7AEEA1A3"
+    func set(peer: PeripheralDevice) {
+        self.rssiLabel.text = peer.rssi
+        self.nameLabel.text = peer.name
+        self.uuidLabel.text = peer.uuid
     }
     
     override func prepareForReuse() {

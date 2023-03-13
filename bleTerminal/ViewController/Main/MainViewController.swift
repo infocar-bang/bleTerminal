@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import Combine
 
 class MainViewController: UIViewController {
     @IBOutlet weak var titleView: TitleView!
     @IBOutlet weak var tableView: UITableView!
+    
+    let vm = MainViewModel()
+    var dto: [PeripheralDevice] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,22 +21,28 @@ class MainViewController: UIViewController {
         
         initView()
         initTableViewCell()
+        setBinding()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        vm.startScan()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-    
-        setBinding()
     }
     
     func initView() {
         guard let navigationControllerInstance = self.navigationController else { return }
         self.titleView.initView(from: self.nameString, navigationController: navigationControllerInstance)
-        self.titleView.setButtonAction(scanButtonAction: {}, stopButtonAction: {})
+        self.titleView.setButtonAction(scanButtonAction: {
+            
+        }, stopButtonAction: { [weak self] in
+            guard let self = self else { return }
+            self.vm.stopScan()
+        })
     }
     
     func initTableViewCell() {
@@ -41,21 +51,25 @@ class MainViewController: UIViewController {
     }
     
     func setBinding() {
-        
+        let _ = vm.$peers.sink { [weak self] peers in
+            guard let self = self else { return }
+            self.dto = peers
+            self.tableView.reloadData()
+        }
     }
 }
 
 // MARK: - UITableViewDataSource
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return self.dto.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? BleListTableViewCell else {
             return UITableViewCell()
         }
-        cell.set()
+        cell.set(peer: dto[indexPath.row])
         
         return cell
     }
