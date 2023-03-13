@@ -10,18 +10,36 @@ import UIKit
 class TerminalViewController: UIViewController {
     @IBOutlet weak var titleView: TitleView!
     
-    @IBOutlet weak var movableContainer: UIView!
+    @IBOutlet weak var terminalView: UIView!
+    @IBOutlet weak var interactionContainer: UIView!
     @IBOutlet weak var macroContainer: UIView!
+    @IBOutlet weak var coverView: UIView!
+    @IBOutlet weak var terminalViewHeightContraint: NSLayoutConstraint!
     
     @IBOutlet weak var checkBoxContainer: UIStackView!
     @IBOutlet weak var checkBoxImageView: UIImageView!
     
     @IBOutlet weak var tableView: UITableView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // keyboard observer 등록
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // keyboard observer 해제
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func initView() {
@@ -40,9 +58,6 @@ class TerminalViewController: UIViewController {
         [ self.view, checkBoxContainer ].forEach { view in
             view?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapGestureHandler)))
         }
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func setBinding() {
@@ -62,14 +77,20 @@ class TerminalViewController: UIViewController {
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
         if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-            self.movableContainer.frame.origin.y -= (keyboardFrame.height - macroContainer.frame.height)
+            if self.tableView.isHidden == false {
+                // Constraints: termialView.bottom == ineractionContainer.top
+                // termialView.height.constraint를 조절하여 interactionContainer의 위치를 keyboard 상단에 위치할 수 있도록 조절
+                self.terminalViewHeightContraint.constant = keyboardFrame.height - macroContainer.frame.height - tableView.frame.height + 10
+                self.tableView.isHidden = true
+                self.coverView.isHidden = false
+            }
         }
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification) {
-        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-            self.movableContainer.frame.origin.y += (keyboardFrame.height - macroContainer.frame.height)
-        }
+        self.terminalViewHeightContraint.constant = 0
+        self.tableView.isHidden = false
+        self.coverView.isHidden = true
     }
 }
 

@@ -273,7 +273,7 @@
                                     <constraint firstAttribute="width" secondItem="YEs-6K-WLu" secondAttribute="height" multiplier="10:8" id="iyg-BR-JK0"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohn-j9-Lt0" userLabel="Movable View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohn-j9-Lt0" userLabel="Interaction Container">
                                 <rect key="frame" x="0.0" y="459" width="393" height="307"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="BUD-Sq-hlP">
@@ -343,6 +343,10 @@
                                                     <constraint firstAttribute="height" constant="44" id="IYY-Dn-gaq"/>
                                                 </constraints>
                                             </stackView>
+                                            <view hidden="YES" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="GAg-bq-BXa" userLabel="Cover View">
+                                                <rect key="frame" x="0.0" y="299" width="385" height="0.0"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            </view>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -351,7 +355,6 @@
                                     <constraint firstAttribute="bottom" secondItem="BUD-Sq-hlP" secondAttribute="bottom" constant="4" id="0Rg-XG-82w"/>
                                     <constraint firstAttribute="trailing" secondItem="BUD-Sq-hlP" secondAttribute="trailing" constant="4" id="0WQ-gC-zqN"/>
                                     <constraint firstItem="BUD-Sq-hlP" firstAttribute="leading" secondItem="ohn-j9-Lt0" secondAttribute="leading" constant="4" id="6XJ-4C-MBF"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="88" id="KIW-B2-rzX"/>
                                     <constraint firstItem="BUD-Sq-hlP" firstAttribute="top" secondItem="ohn-j9-Lt0" secondAttribute="top" constant="4" id="s0a-yL-Noh"/>
                                 </constraints>
                             </view>
@@ -570,9 +573,12 @@
                     <connections>
                         <outlet property="checkBoxContainer" destination="cVY-27-WAj" id="CeZ-l6-Z4p"/>
                         <outlet property="checkBoxImageView" destination="5Cm-Oi-On7" id="raL-6X-xp9"/>
+                        <outlet property="coverView" destination="GAg-bq-BXa" id="Cb7-Uz-0M5"/>
+                        <outlet property="interactionContainer" destination="ohn-j9-Lt0" id="lej-pK-qBP"/>
                         <outlet property="macroContainer" destination="eDp-wL-ENY" id="9zM-8B-UWo"/>
-                        <outlet property="movableContainer" destination="ohn-j9-Lt0" id="lej-pK-qBP"/>
                         <outlet property="tableView" destination="goj-Cy-dfW" id="Rli-hI-s3g"/>
+                        <outlet property="terminalView" destination="YEs-6K-WLu" id="DbX-iE-E5A"/>
+                        <outlet property="terminalViewHeightContraint" destination="iyg-BR-JK0" id="iCV-6p-5ZI"/>
                         <outlet property="titleView" destination="LVZ-3s-Oi8" id="P9g-Xu-RQy"/>
                     </connections>
                 </viewController>
