@@ -10,16 +10,21 @@ import UIKit
 class TerminalViewController: UIViewController {
     @IBOutlet weak var titleView: TitleView!
     
-    @IBOutlet weak var terminalView: UIView!
-    @IBOutlet weak var interactionContainer: UIView!
-    @IBOutlet weak var macroContainer: UIView!
-    @IBOutlet weak var coverView: UIView!
+    @IBOutlet weak var terminalView: UIScrollView!
     @IBOutlet weak var terminalViewHeightContraint: NSLayoutConstraint!
+    @IBOutlet weak var responseLabel: UILabel!
     
+    @IBOutlet weak var interactionContainer: UIView!
     @IBOutlet weak var checkBoxContainer: UIStackView!
     @IBOutlet weak var checkBoxImageView: UIImageView!
-    
+    @IBOutlet weak var selectPropertiesButton: UIButton!
+    @IBOutlet weak var commandTextField: UITextField!
+    @IBOutlet weak var sendCommandButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var coverView: UIView!
+    
+    @IBOutlet weak var macroContainer: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,8 +60,12 @@ class TerminalViewController: UIViewController {
             }
         )
         
-        [ self.view, checkBoxContainer ].forEach { view in
+        [ view, checkBoxContainer ].forEach { view in
             view?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapGestureHandler)))
+        }
+        
+        [ selectPropertiesButton, sendCommandButton ].forEach { button in
+            button?.addTarget(self, action: #selector(buttonActionHandler), for: .touchUpInside)
         }
     }
     
@@ -68,10 +77,22 @@ class TerminalViewController: UIViewController {
         switch recognizer.view {
         case view:
             view.endEditing(true)
-        case self.checkBoxContainer:
+        case checkBoxContainer:
             // TODO: vm에 탭 됐다고 전달 -> vm 에서 관련 변수 수정 -> observe로 확인 후 변경(아래 코드는 이동해야함)
             self.checkBoxImageView.image = UIImage(systemName: "checkmark.square.fill")
         default: return
+        }
+    }
+    
+    @objc func buttonActionHandler(_ sender: UIButton) {
+        switch sender {
+        case selectPropertiesButton:
+            return
+        case sendCommandButton:
+            // TODO: text field의 text를 vm에 전달 -> vm에서 table view의 data로 저장 -> table view reload
+            return
+        default:
+            return
         }
     }
     
