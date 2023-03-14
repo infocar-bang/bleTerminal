@@ -9,7 +9,7 @@ import Foundation
 
 class MainViewModel: BaseViewModel {
     let bleManager = BleManager.shared
-    var peers: Observable<[PeripheralDevice]> = Observable([])
+    var peers: Observable<[Peer]> = Observable([])
     var scanState: Observable<Bool> = Observable(false)
     
     var timerWorkItem: DispatchWorkItem?
@@ -17,7 +17,21 @@ class MainViewModel: BaseViewModel {
     override init() {
         super.init()
         
+        setHandler()
         registTimer()
+    }
+    
+    private func setHandler() {
+        bleManager.onDidDiscoverPeripheral = { [weak self] peripheral, rssi in
+            guard let self = self else { return }
+            let peripheralDevice = Peer(peripheral: peripheral, rssi: rssi)
+            if self.peers.value.contains(peripheralDevice) == false {
+                print(#file, #function, peripheralDevice)
+                
+                self.peers.value.append(peripheralDevice)
+                self.peers.value.sort { $0.rssi.floatValue > $1.rssi.floatValue }
+            }
+        }
     }
     
     private func registTimer() {
@@ -33,24 +47,17 @@ class MainViewModel: BaseViewModel {
         self.peers.value = []
         registTimer()
         
-        bleManager.startScan()
-        bleManager.onDidDiscoverPeripheral = { [weak self] peripheral, rssi in
-            guard let self = self else { return }
-            let peripheralDevice = PeripheralDevice(peripheral: peripheral, rssi: rssi)
-            if self.peers.value.contains(peripheralDevice) == false {
-                print(#function, peripheralDevice)
-                
-                self.peers.value.append(peripheralDevice)
-                self.peers.value.sort { $0.rssi.floatValue > $1.rssi.floatValue }
-            }
-        }
+        self.bleManager.startScan()
         
         guard let timerWorkItem = self.timerWorkItem else { return }
         DispatchQueue.global().asyncAfter(deadline: .now() + 5, execute: timerWorkItem)
     }
     
     func stopScan() {
-        bleManager.stopScan()
+        self.bleManager.stopScan()
+        if self.scanState.value == true {
+            self.scanState.value = false
+        }
         self.timerWorkItem?.cancel()
     }
 }

@@ -16,6 +16,7 @@ class TitleView: UIView {
     
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var connectionButton: UIButton!
+    @IBOutlet weak var disconnectionButton: UIButton!
     @IBOutlet weak var scanButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var dataTypeButton: UIButton!
@@ -24,6 +25,7 @@ class TitleView: UIView {
     
     var onDidTapBackButton: (() -> Void)?
     var onDidTapConnectionButton: (() -> Void)?
+    var onDidTapDisconnectionButton: (() -> Void)?
     var onDidTapScanButton: (() -> Void)?
     var onDidTapStopButton: (() -> Void)?
     var onDidTapDataTypeButton: (() -> Void)?
@@ -49,7 +51,7 @@ class TitleView: UIView {
         loadNib()
     }
     
-    func initView(from viewControllerName: String, navigationController: UINavigationController) {
+    func initView(from viewControllerName: String, navigationController: UINavigationController, peerName: String? = nil) {
         self.navigationController = navigationController
         
         switch viewControllerName {
@@ -59,6 +61,7 @@ class TitleView: UIView {
             self.connectionStateLabel.isHidden = true
             self.backButton.isHidden = true
             self.connectionButton.isHidden = true
+            self.disconnectionButton.isHidden = true
             self.scanButton.isHidden = true
             self.dataTypeButton.isHidden = true
             
@@ -76,8 +79,13 @@ class TitleView: UIView {
             
         case "Terminal":
             self.loadingIndicator.isHidden = true
+            self.disconnectionButton.isHidden = true
             self.scanButton.isHidden = true
             self.stopButton.isHidden = true
+            
+            if let peerName = peerName {
+                self.connectionStateLabel.text = ConnectState.CONNECTING.titleString + peerName
+            }
             
             let commandTypeItems = [
                 UIAction(title: "ASCII", handler: { _ in }),
@@ -100,6 +108,7 @@ class TitleView: UIView {
             self.connectionStateLabel.isHidden = true
             self.loadingIndicator.isHidden = true
             self.connectionButton.isHidden = true
+            self.disconnectionButton.isHidden = true
             self.scanButton.isHidden = true
             self.stopButton.isHidden = true
             self.dataTypeButton.isHidden = true
@@ -108,16 +117,17 @@ class TitleView: UIView {
             return
         }
         
-        [ backButton, connectionButton, scanButton, stopButton, menuButton ].forEach { button in
+        [ backButton, connectionButton, disconnectionButton, scanButton, stopButton, menuButton ].forEach { button in
             button?.addTarget(self, action: #selector(buttonActionHandler), for: .touchUpInside)
         }
     }
     
-    func setBind(vm: BaseViewModel) {
-        if let vm = vm as? MainViewModel {
+    func setBind(vm: BaseViewModel, peerName: String? = nil) {
+        switch vm {
+        case is MainViewModel:
+            guard let vm = vm as? MainViewModel else { return }
             vm.scanState.bind { [weak self] bool in
-                print(#function, "changeScanState: \(bool)")
-                
+                print(#file, #function, "changeScanState: \(bool)")
                 guard let self = self else { return }
                 if bool == true {
                     DispatchQueue.main.async {
@@ -129,11 +139,30 @@ class TitleView: UIView {
                     }
                 }
             }
+            
+        case is TerminalViewModel:
+            guard let vm = vm as? TerminalViewModel else { return }
+            vm.connectionState.bind { [weak self] state in
+                print(#file, #function, "changeConnectionState: \(state.titleString)")
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    switch state {
+                    case .CONNECTED:
+                        self.processConnectedState()
+                    default:
+                        self.processDisconnectedState()
+                    }
+                    self.connectionStateLabel.text = state.titleString + (peerName ?? "Unnamed")
+                }
+            }
+            
+        default: return
         }
     }
     
     func setButtonAction(backButtonAction: (() -> Void)? = nil,
                          connectionButtonAction: (() -> Void)? = nil,
+                         disconnectionButtonAction: (() -> Void)? = nil,
                          scanButtonAction: (() -> Void)? = nil,
                          stopButtonAction: (() -> Void)? = nil,
                          dataTypeButtonAction: (() -> Void)? = nil,
@@ -141,6 +170,7 @@ class TitleView: UIView {
         
         self.onDidTapBackButton = backButtonAction
         self.onDidTapConnectionButton = connectionButtonAction
+        self.onDidTapDisconnectionButton = disconnectionButtonAction
         self.onDidTapScanButton = scanButtonAction
         self.onDidTapStopButton = stopButtonAction
         self.onDidTapDataTypeButton = dataTypeButtonAction
@@ -154,7 +184,11 @@ class TitleView: UIView {
             guard let navigationController = self.navigationController else { return }
             navigationController.popViewController(animated: true)
         case connectionButton:
+            self.processConnectedState()
             onDidTapConnectionButton?()
+        case disconnectionButton:
+            self.processDisconnectedState()
+            onDidTapDisconnectionButton?()
         case scanButton:
             self.processScanState()
             onDidTapScanButton?()
@@ -179,5 +213,15 @@ class TitleView: UIView {
         self.stopButton.isHidden = true
         self.scanButton.isHidden = false
         self.loadingIndicator.isHidden = true
+    }
+    
+    private func processConnectedState() {
+        self.connectionButton.isHidden = true
+        self.disconnectionButton.isHidden = false
+    }
+    
+    private func processDisconnectedState() {
+        self.connectionButton.isHidden = false
+        self.disconnectionButton.isHidden = true
     }
 }

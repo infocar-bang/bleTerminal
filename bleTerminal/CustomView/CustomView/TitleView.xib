@@ -15,6 +15,7 @@
                 <outlet property="connectionButton" destination="rbB-9V-cVp" id="Cck-JV-7bc"/>
                 <outlet property="connectionStateLabel" destination="4Vj-7N-525" id="sBy-2m-TCk"/>
                 <outlet property="dataTypeButton" destination="0NI-Ot-t4f" id="hWy-8J-NjR"/>
+                <outlet property="disconnectionButton" destination="gWA-0G-V46" id="nQT-l7-q78"/>
                 <outlet property="loadingIndicator" destination="4bL-CG-5dT" id="Hav-Z1-Isd"/>
                 <outlet property="menuButton" destination="Y35-yc-dUy" id="V6F-dX-Kpc"/>
                 <outlet property="scanButton" destination="FQb-dF-oUd" id="h62-y9-1m3"/>
@@ -32,22 +33,22 @@
                     <rect key="frame" x="0.0" y="0.0" width="500" height="100"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MrS-Kw-bse" userLabel="Back Button">
-                            <rect key="frame" x="0.0" y="0.0" width="39.666666666666664" height="100"/>
+                            <rect key="frame" x="0.0" y="0.0" width="5.666666666666667" height="100"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="chevron.backward" catalog="system"/>
                         </button>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="st1-w0-nFp">
-                            <rect key="frame" x="43.666666666666664" y="0.0" width="117.66666666666669" height="100"/>
+                            <rect key="frame" x="9.6666666666666643" y="0.0" width="91.333333333333343" height="100"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="BLE Terminal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPL-Oa-DOY">
-                                    <rect key="frame" x="0.0" y="0.0" width="117.66666666666667" height="58.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="91.333333333333329" height="58.666666666666664"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connected With" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Vj-7N-525">
-                                    <rect key="frame" x="0.0" y="58.666666666666657" width="117.66666666666667" height="41.333333333333343"/>
+                                    <rect key="frame" x="0.0" y="58.666666666666657" width="91.333333333333329" height="41.333333333333343"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -55,15 +56,23 @@
                             </subviews>
                         </stackView>
                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="4bL-CG-5dT">
-                            <rect key="frame" x="165.33333333333334" y="0.0" width="20" height="100"/>
+                            <rect key="frame" x="105" y="0.0" width="20" height="100"/>
                             <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </activityIndicatorView>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rbB-9V-cVp" userLabel="Connection Button">
-                            <rect key="frame" x="189.33333333333334" y="0.0" width="53" height="100"/>
+                            <rect key="frame" x="129" y="0.0" width="54.666666666666657" height="100"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain">
-                                <imageReference key="image" image="cloud.fill" catalog="system" symbolScale="large"/>
+                                <imageReference key="image" image="icloud.fill" catalog="system" symbolScale="large"/>
+                            </buttonConfiguration>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWA-0G-V46" userLabel="Disconnection Button">
+                            <rect key="frame" x="187.66666666666666" y="0.0" width="54.666666666666657" height="100"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain">
+                                <imageReference key="image" image="icloud.slash.fill" catalog="system" symbolScale="large"/>
                             </buttonConfiguration>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="253" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQb-dF-oUd" userLabel="Scan Button">
@@ -78,7 +87,7 @@
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" title="STOP"/>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="253" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0NI-Ot-t4f">
+                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="253" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0NI-Ot-t4f">
                             <rect key="frame" x="391" y="0.0" width="57" height="100"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Button"/>
@@ -108,7 +117,8 @@
     </objects>
     <resources>
         <image name="chevron.backward" catalog="system" width="97" height="128"/>
-        <image name="cloud.fill" catalog="system" width="128" height="87"/>
+        <image name="icloud.fill" catalog="system" width="128" height="90"/>
+        <image name="icloud.slash.fill" catalog="system" width="128" height="102"/>
         <image name="icon_menu" width="24" height="24"/>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

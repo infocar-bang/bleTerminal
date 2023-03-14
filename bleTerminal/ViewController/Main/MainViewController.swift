@@ -12,7 +12,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     let vm = MainViewModel()
-    var dto: [PeripheralDevice] = []
+    var dto: [Peer] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,8 +83,8 @@ extension MainViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // push TerminalView
-        guard let terminalViewController = self.storyboard?.instantiateViewController(withIdentifier: "TerminalViewController") else { return }
+        guard let terminalViewController = self.storyboard?.instantiateViewController(withIdentifier: "TerminalViewController") as? TerminalViewController else { return }
+        terminalViewController.peer = self.dto[indexPath.row]
         self.navigationController?.pushViewController(terminalViewController, animated: true)
     }
 }

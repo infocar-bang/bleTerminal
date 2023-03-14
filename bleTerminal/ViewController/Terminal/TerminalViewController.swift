@@ -25,11 +25,17 @@ class TerminalViewController: UIViewController {
     
     @IBOutlet weak var macroContainer: UIView!
     
+    let vm = TerminalViewModel()
+    var peer: Peer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initView()
         initTableViewCell()
+        setBinding()
+    
+        vm.connect(with: peer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,6 +44,8 @@ class TerminalViewController: UIViewController {
         // keyboard observer 등록
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        // try to connect with peer
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -50,12 +58,20 @@ class TerminalViewController: UIViewController {
     
     func initView() {
         guard let navigationControllerInstance = self.navigationController else { return }
-        self.titleView.initView(from: self.nameString, navigationController: navigationControllerInstance)
+        self.titleView.initView(from: self.nameString, navigationController: navigationControllerInstance, peerName: peer.name)
         self.titleView.setButtonAction(
-            backButtonAction: {
-                
-            }, connectionButtonAction: {
-                
+            backButtonAction: { [weak self] in
+                guard let self = self else { return }
+                // try to disconnect with peer
+                self.vm.disconnect(with: self.peer)
+            }, connectionButtonAction: { [weak self] in
+                guard let self = self else { return }
+                // try to connect with peer
+                self.vm.connect(with: self.peer)
+            }, disconnectionButtonAction: { [weak self] in
+                guard let self = self else { return }
+                // try to connect with peer
+                self.vm.disconnect(with: self.peer)
             }, menuButtonAction: {
                 
             }
@@ -76,7 +92,7 @@ class TerminalViewController: UIViewController {
     }
     
     func setBinding() {
-        
+        titleView.setBind(vm: vm, peerName: peer.name)
     }
     
     @objc func tapGestureHandler(_ recognizer: UITapGestureRecognizer) {
@@ -121,7 +137,7 @@ class TerminalViewController: UIViewController {
     }
 }
 
-// MARK: -
+// MARK: - UITextFieldDelegate
 extension TerminalViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -129,7 +145,7 @@ extension TerminalViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: -
+// MARK: - UITableViewDataSource
 extension TerminalViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3

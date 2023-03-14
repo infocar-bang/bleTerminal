@@ -24,7 +24,7 @@ class BleListTableViewCell: UITableViewCell {
         self.rssiLabel.layer.masksToBounds = true
     }
     
-    func set(peer: PeripheralDevice) {
+    func set(peer: Peer) {
         self.rssiLabel.text = peer.rssi.stringValue
         self.nameLabel.text = peer.name
         self.uuidLabel.text = peer.uuid
