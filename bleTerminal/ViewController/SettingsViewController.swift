@@ -71,8 +71,6 @@ extension SettingsViewController: UITableViewDelegate {
                 return
             }
             popupVC.modalPresentationStyle = .overFullScreen
-            
-            // TODO: settingsVC dimmed 처리
             self.present(popupVC, animated: false)
         default: return
         }

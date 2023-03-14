@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ConnectState {
+enum ConnectionState {
     case CONNECTED
     case DISCONNECTED
     case CONNECTING

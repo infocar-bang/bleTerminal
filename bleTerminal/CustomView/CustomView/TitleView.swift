@@ -58,12 +58,8 @@ class TitleView: UIView {
         case "Main":
             self.stackView.layoutMargins = UIEdgeInsets(top: .zero, left: 10, bottom: .zero, right: .zero)
             self.stackView.isLayoutMarginsRelativeArrangement = true
-            self.connectionStateLabel.isHidden = true
-            self.backButton.isHidden = true
-            self.connectionButton.isHidden = true
-            self.disconnectionButton.isHidden = true
-            self.scanButton.isHidden = true
-            self.dataTypeButton.isHidden = true
+            self.scanButton.isHidden = false
+            self.menuButton.isHidden = false
             
             let menuItems = [
                 UIAction(title: "Settings", handler: { [weak self] _ in
@@ -78,13 +74,14 @@ class TitleView: UIView {
             self.menuButton.menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: menuItems)
             
         case "Terminal":
-            self.loadingIndicator.isHidden = true
-            self.disconnectionButton.isHidden = true
-            self.scanButton.isHidden = true
-            self.stopButton.isHidden = true
+            self.backButton.isHidden = false
+            self.connectionStateLabel.isHidden = false
+            self.connectionButton.isHidden = false
+            self.dataTypeButton.isHidden = false
+            self.menuButton.isHidden = false
             
             if let peerName = peerName {
-                self.connectionStateLabel.text = ConnectState.CONNECTING.titleString + peerName
+                self.connectionStateLabel.text = ConnectionState.CONNECTING.titleString + peerName
             }
             
             let commandTypeItems = [
@@ -104,59 +101,14 @@ class TitleView: UIView {
             self.menuButton.menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: menuItems)
             
         case "Settings", "ViewMore":
+            self.backButton.isHidden = false
             self.titleLabel.text = viewControllerName
-            self.connectionStateLabel.isHidden = true
-            self.loadingIndicator.isHidden = true
-            self.connectionButton.isHidden = true
-            self.disconnectionButton.isHidden = true
-            self.scanButton.isHidden = true
-            self.stopButton.isHidden = true
-            self.dataTypeButton.isHidden = true
-            self.menuButton.isHidden = true
         default:
             return
         }
         
         [ backButton, connectionButton, disconnectionButton, scanButton, stopButton, menuButton ].forEach { button in
             button?.addTarget(self, action: #selector(buttonActionHandler), for: .touchUpInside)
-        }
-    }
-    
-    func setBind(vm: BaseViewModel, peerName: String? = nil) {
-        switch vm {
-        case is MainViewModel:
-            guard let vm = vm as? MainViewModel else { return }
-            vm.scanState.bind { [weak self] bool in
-                print(#file, #function, "changeScanState: \(bool)")
-                guard let self = self else { return }
-                if bool == true {
-                    DispatchQueue.main.async {
-                        self.processScanState()
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self.processStopState()
-                    }
-                }
-            }
-            
-        case is TerminalViewModel:
-            guard let vm = vm as? TerminalViewModel else { return }
-            vm.connectionState.bind { [weak self] state in
-                print(#file, #function, "changeConnectionState: \(state.titleString)")
-                guard let self = self else { return }
-                DispatchQueue.main.async {
-                    switch state {
-                    case .CONNECTED:
-                        self.processConnectedState()
-                    default:
-                        self.processDisconnectedState()
-                    }
-                    self.connectionStateLabel.text = state.titleString + (peerName ?? "Unnamed")
-                }
-            }
-            
-        default: return
         }
     }
     
@@ -184,16 +136,12 @@ class TitleView: UIView {
             guard let navigationController = self.navigationController else { return }
             navigationController.popViewController(animated: true)
         case connectionButton:
-            self.processConnectedState()
             onDidTapConnectionButton?()
         case disconnectionButton:
-            self.processDisconnectedState()
             onDidTapDisconnectionButton?()
         case scanButton:
-            self.processScanState()
             onDidTapScanButton?()
         case stopButton:
-            self.processStopState()
             onDidTapStopButton?()
         case dataTypeButton:
             onDidTapDataTypeButton?()
@@ -203,25 +151,35 @@ class TitleView: UIView {
         }
     }
     
-    private func processScanState() {
-        self.stopButton.isHidden = false
-        self.scanButton.isHidden = true
-        self.loadingIndicator.isHidden = false
+    func changeScanState(_ state: ScanState) {
+        DispatchQueue.main.async {
+            switch state {
+            case .SCAN:
+                self.scanButton.isHidden = true
+                self.stopButton.isHidden = false
+                self.loadingIndicator.isHidden = false
+            case .STOP:
+                self.scanButton.isHidden = false
+                self.stopButton.isHidden = true
+                self.loadingIndicator.isHidden = true
+            }
+        }
     }
     
-    private func processStopState() {
-        self.stopButton.isHidden = true
-        self.scanButton.isHidden = false
-        self.loadingIndicator.isHidden = true
-    }
-    
-    private func processConnectedState() {
-        self.connectionButton.isHidden = true
-        self.disconnectionButton.isHidden = false
-    }
-    
-    private func processDisconnectedState() {
-        self.connectionButton.isHidden = false
-        self.disconnectionButton.isHidden = true
+    func changeConnectionState(_ state: ConnectionState, peerName: String) {
+        DispatchQueue.main.async {
+            self.connectionStateLabel.text = state.titleString + peerName
+            
+            switch state {
+            case .CONNECTED:
+                self.connectionButton.isHidden = true
+                self.disconnectionButton.isHidden = false
+            case .DISCONNECTED:
+                self.connectionButton.isHidden = false
+                self.disconnectionButton.isHidden = true
+            case .CONNECTING:
+                return
+            }
+        }
     }
 }

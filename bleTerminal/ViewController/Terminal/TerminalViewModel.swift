@@ -9,7 +9,7 @@ import Foundation
 
 class TerminalViewModel: BaseViewModel {
     let bleManager = BleManager.shared
-    var connectionState: Observable<ConnectState> = Observable(.DISCONNECTED)
+    var connectionState: Observable<ConnectionState> = Observable(.DISCONNECTED)
     
     override init() {
         super.init()

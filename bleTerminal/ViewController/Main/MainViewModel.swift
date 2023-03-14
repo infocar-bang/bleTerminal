@@ -10,7 +10,7 @@ import Foundation
 class MainViewModel: BaseViewModel {
     let bleManager = BleManager.shared
     var peers: Observable<[Peer]> = Observable([])
-    var scanState: Observable<Bool> = Observable(false)
+    var scanState: Observable<ScanState> = Observable(.STOP)
     
     var timerWorkItem: DispatchWorkItem?
     
@@ -38,12 +38,12 @@ class MainViewModel: BaseViewModel {
         self.timerWorkItem = DispatchWorkItem { [weak self] in
             guard let self = self else { return }
             self.bleManager.stopScan()
-            self.scanState.value = false
+            self.scanState.value = .STOP
         }
     }
     
     func startScan() {
-        self.scanState.value = true
+        self.scanState.value = .SCAN
         self.peers.value = []
         registTimer()
         
@@ -55,8 +55,8 @@ class MainViewModel: BaseViewModel {
     
     func stopScan() {
         self.bleManager.stopScan()
-        if self.scanState.value == true {
-            self.scanState.value = false
+        if self.scanState.value == .SCAN {
+            self.scanState.value = .STOP
         }
         self.timerWorkItem?.cancel()
     }

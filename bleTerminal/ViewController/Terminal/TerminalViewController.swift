@@ -92,7 +92,22 @@ class TerminalViewController: UIViewController {
     }
     
     func setBinding() {
-        titleView.setBind(vm: vm, peerName: peer.name)
+        self.vm.connectionState.bind { [weak self] state in
+            guard let self = self else { return }
+            self.titleView.changeConnectionState(state, peerName: self.peer.name)
+            
+            switch state {
+            case .CONNECTING:
+                guard let popupVC = self.storyboard?.instantiateViewController(withIdentifier: "TerminalPopupViewController") as? TerminalPopupViewController else { return }
+                popupVC.modalPresentationStyle = .overFullScreen
+                self.present(popupVC, animated: false)
+                
+            case .CONNECTED:
+                self.presentedViewController?.dismiss(animated: false)
+            case .DISCONNECTED:
+                return
+            }
+        }
     }
     
     @objc func tapGestureHandler(_ recognizer: UITapGestureRecognizer) {

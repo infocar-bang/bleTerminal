@@ -54,9 +54,12 @@ class MainViewController: UIViewController {
     }
     
     func setBinding() {
-        titleView.setBind(vm: vm)
+        self.vm.scanState.bind { [weak self] state in
+            guard let self = self else { return }
+            self.titleView.changeScanState(state)
+        }
         
-        vm.peers.bind { [weak self] peers in
+        self.vm.peers.bind { [weak self] peers in
             guard let self = self else { return }
             self.dto = peers
             self.tableView.reloadData()

@@ -23,6 +23,7 @@
 		DE04B1B829B976C200E49FA6 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04B1B729B976C200E49FA6 /* TitleView.swift */; };
 		DE0EB42C29C0526200BAD845 /* TerminalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0EB42B29C0526200BAD845 /* TerminalViewModel.swift */; };
 		DE47894D29C05E4600B5DD9B /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE47894C29C05E4600B5DD9B /* ConnectionState.swift */; };
+		DE47894F29C1372200B5DD9B /* ScanState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE47894E29C1372200B5DD9B /* ScanState.swift */; };
 		DE7EA48429B99B52006415D0 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7EA48329B99B52006415D0 /* NavigationController.swift */; };
 		DE7EA48829B9A089006415D0 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7EA48729B9A089006415D0 /* UIViewController+Extension.swift */; };
 		DEA35E8329B9D68C001BB9B3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA35E8229B9D68C001BB9B3 /* SettingsViewController.swift */; };
@@ -83,6 +84,7 @@
 		DE04B1B729B976C200E49FA6 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		DE0EB42B29C0526200BAD845 /* TerminalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalViewModel.swift; sourceTree = "<group>"; };
 		DE47894C29C05E4600B5DD9B /* ConnectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionState.swift; sourceTree = "<group>"; };
+		DE47894E29C1372200B5DD9B /* ScanState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanState.swift; sourceTree = "<group>"; };
 		DE7EA48329B99B52006415D0 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		DE7EA48729B9A089006415D0 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DEA35E8229B9D68C001BB9B3 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				DE47894C29C05E4600B5DD9B /* ConnectionState.swift */,
+				DE47894E29C1372200B5DD9B /* ScanState.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 				DED4CD4629BEE8FF00975C63 /* Peer.swift in Sources */,
 				DE04B18029B86C1500E49FA6 /* bleTerminal.xcdatamodeld in Sources */,
 				DE04B1B829B976C200E49FA6 /* TitleView.swift in Sources */,
+				DE47894F29C1372200B5DD9B /* ScanState.swift in Sources */,
 				DE47894D29C05E4600B5DD9B /* ConnectionState.swift in Sources */,
 				DEA35E9129BAC5CF001BB9B3 /* SettingPopupViewController.swift in Sources */,
 				DED4CD4E29C00D5500975C63 /* Observable.swift in Sources */,
