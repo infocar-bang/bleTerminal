@@ -30,6 +30,7 @@
 		DEA35E9129BAC5CF001BB9B3 /* SettingPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA35E9029BAC5CF001BB9B3 /* SettingPopupViewController.swift */; };
 		DED4CD3C29BEBE1600975C63 /* TerminalCommandTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4CD3A29BEBE1600975C63 /* TerminalCommandTableViewCell.swift */; };
 		DED4CD3D29BEBE1600975C63 /* TerminalCommandTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DED4CD3B29BEBE1600975C63 /* TerminalCommandTableViewCell.xib */; };
+		DED4CD5329C04CDF00975C63 /* TerminalPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4CD5229C04CDF00975C63 /* TerminalPopupViewController.swift */; };
 		DEDB051129BACA7E0074885E /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDB050F29BACA7E0074885E /* SettingTableViewCell.swift */; };
 		DEDB051229BACA7E0074885E /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEDB051029BACA7E0074885E /* SettingTableViewCell.xib */; };
 		DEDB051529BAEA1F0074885E /* SettingPopupItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDB051329BAEA1F0074885E /* SettingPopupItemTableViewCell.swift */; };
@@ -82,6 +83,7 @@
 		DEA35E9029BAC5CF001BB9B3 /* SettingPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPopupViewController.swift; sourceTree = "<group>"; };
 		DED4CD3A29BEBE1600975C63 /* TerminalCommandTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalCommandTableViewCell.swift; sourceTree = "<group>"; };
 		DED4CD3B29BEBE1600975C63 /* TerminalCommandTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TerminalCommandTableViewCell.xib; sourceTree = "<group>"; };
+		DED4CD5229C04CDF00975C63 /* TerminalPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalPopupViewController.swift; sourceTree = "<group>"; };
 		DEDB050F29BACA7E0074885E /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		DEDB051029BACA7E0074885E /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		DEDB051329BAEA1F0074885E /* SettingPopupItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPopupItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				DEDB051729BAF3280074885E /* TerminalViewController.swift */,
 				DEA35E8229B9D68C001BB9B3 /* SettingsViewController.swift */,
 				DEA35E9029BAC5CF001BB9B3 /* SettingPopupViewController.swift */,
+				DED4CD5229C04CDF00975C63 /* TerminalPopupViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				DE7EA48829B9A089006415D0 /* UIViewController+Extension.swift in Sources */,
 				DE04B17A29B86C1500E49FA6 /* MainViewController.swift in Sources */,
 				DE04B1AF29B8749200E49FA6 /* BleListTableViewCell.swift in Sources */,
+				DED4CD5329C04CDF00975C63 /* TerminalPopupViewController.swift in Sources */,
 				DE04B17629B86C1500E49FA6 /* AppDelegate.swift in Sources */,
 				DEDB051529BAEA1F0074885E /* SettingPopupItemTableViewCell.swift in Sources */,
 				DE04B17829B86C1500E49FA6 /* SceneDelegate.swift in Sources */,
