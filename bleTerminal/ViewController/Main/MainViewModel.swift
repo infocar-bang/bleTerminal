@@ -6,18 +6,29 @@
 //
 
 import Foundation
-import CoreBluetooth
 
 class MainViewModel: ObservableObject {
-    @Published var peers: [PeripheralDevice] = []
+    let bleManager = BleManager.shared
+    
+    var listener: ((Set<PeripheralDevice>) -> Void)? = nil
+    var peers: Set<PeripheralDevice> = [] {
+        didSet {
+            listener?(peers)
+        }
+    }
 
     func startScan() {
-//        if centralManager.state == .poweredOn {
-//            self.centralManager.scanForPeripherals(withServices: nil)
-//        }
+        bleManager.startScan()
+        bleManager.onDidDiscoverPeripheral = { [weak self] peripheral, rssi in
+            guard let self = self else { return }
+            
+            print(#function, peripheral)
+            let peripheralDevice = PeripheralDevice(peripheral: peripheral, rssi: rssi)
+            self.peers.insert(peripheralDevice)
+        }
     }
     
     func stopScan() {
-//        self.centralManager.stopScan()
+        bleManager.stopScan()
     }
 }

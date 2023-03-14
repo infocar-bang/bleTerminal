@@ -8,7 +8,7 @@
 import Foundation
 import CoreBluetooth
 
-struct PeripheralDevice {
+struct PeripheralDevice: Hashable {
     let name: String
     let uuid: String
     let rssi: String

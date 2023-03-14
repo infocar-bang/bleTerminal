@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 
 class MainViewController: UIViewController {
     @IBOutlet weak var titleView: TitleView!
@@ -51,9 +50,9 @@ class MainViewController: UIViewController {
     }
     
     func setBinding() {
-        let _ = vm.$peers.sink { [weak self] peers in
+        vm.listener = { [weak self] peers in
             guard let self = self else { return }
-            self.dto = peers
+            self.dto = peers.compactMap({ $0 })
             self.tableView.reloadData()
         }
     }
