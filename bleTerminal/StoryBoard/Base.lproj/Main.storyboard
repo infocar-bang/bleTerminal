@@ -613,11 +613,69 @@
                         <outlet property="terminalView" destination="gaj-ny-yL8" id="xsZ-KJ-eRd"/>
                         <outlet property="terminalViewHeightContraint" destination="HSi-F6-7bj" id="nQ4-rI-D2V"/>
                         <outlet property="titleView" destination="LVZ-3s-Oi8" id="P9g-Xu-RQy"/>
+                        <segue destination="5mA-Vy-0sO" kind="show" identifier="TerminalPopupVCSegue" id="GY0-pQ-9g6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J1a-gO-fde" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-567.17557251908397" y="917.6056338028169"/>
+        </scene>
+        <!--Terminal Popup View Controller-->
+        <scene sceneID="VIx-gE-0js">
+            <objects>
+                <viewController storyboardIdentifier="TerminalPopupViewController" id="5mA-Vy-0sO" userLabel="Terminal Popup View Controller" customClass="TerminalPopupViewController" customModule="bleTerminal" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hfh-Ft-1R3">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X7x-In-VxQ">
+                                <rect key="frame" x="121.66666666666669" y="376" width="150" height="100"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="iw4-3u-bxm">
+                                        <rect key="frame" x="24.999999999999986" y="20" width="100" height="60"/>
+                                        <subviews>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" verticalCompressionResistancePriority="749" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="O9w-h1-PTa">
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="35.666666666666664"/>
+                                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </activityIndicatorView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting.." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lxd-GM-0ND">
+                                                <rect key="frame" x="0.0" y="39.666666666666686" width="100" height="20.333333333333329"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="Rpy-3z-OjJ"/>
+                                            <constraint firstAttribute="width" constant="100" id="UzX-gq-YJh"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <viewLayoutGuide key="safeArea" id="MCw-V2-AfO"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="iw4-3u-bxm" firstAttribute="centerY" secondItem="X7x-In-VxQ" secondAttribute="centerY" id="Cr0-Tf-nD6"/>
+                                    <constraint firstAttribute="height" constant="100" id="DDz-nJ-FoL"/>
+                                    <constraint firstAttribute="width" constant="150" id="YVF-dH-acI"/>
+                                    <constraint firstItem="iw4-3u-bxm" firstAttribute="centerX" secondItem="X7x-In-VxQ" secondAttribute="centerX" id="h6f-jH-Upl"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="UcZ-zX-9Ao"/>
+                        <color key="backgroundColor" red="0.098494146290000001" green="0.098494146290000001" blue="0.098494146290000001" alpha="0.8979139263" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="X7x-In-VxQ" firstAttribute="centerY" secondItem="hfh-Ft-1R3" secondAttribute="centerY" id="NSL-YE-FCl"/>
+                            <constraint firstItem="X7x-In-VxQ" firstAttribute="centerX" secondItem="hfh-Ft-1R3" secondAttribute="centerX" id="s90-6r-3NJ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="cxM-a7-eMa"/>
+                    <connections>
+                        <outlet property="popupView" destination="X7x-In-VxQ" id="rKo-I4-34D"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fLh-Dz-deA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="447" y="918"/>
         </scene>
     </scenes>
     <resources>
