@@ -25,7 +25,7 @@ class BleListTableViewCell: UITableViewCell {
     }
     
     func set(peer: PeripheralDevice) {
-        self.rssiLabel.text = peer.rssi
+        self.rssiLabel.text = peer.rssi.stringValue
         self.nameLabel.text = peer.name
         self.uuidLabel.text = peer.uuid
     }

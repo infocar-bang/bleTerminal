@@ -29,15 +29,19 @@ class MainViewController: UIViewController {
         vm.startScan()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        vm.stopScan()
     }
     
     func initView() {
         guard let navigationControllerInstance = self.navigationController else { return }
         self.titleView.initView(from: self.nameString, navigationController: navigationControllerInstance)
-        self.titleView.setButtonAction(scanButtonAction: {
-            
+        self.titleView.setButtonAction(
+            scanButtonAction: { [weak self] in
+            guard let self = self else { return }
+            self.vm.startScan()
         }, stopButtonAction: { [weak self] in
             guard let self = self else { return }
             self.vm.stopScan()
@@ -50,9 +54,11 @@ class MainViewController: UIViewController {
     }
     
     func setBinding() {
-        vm.listener = { [weak self] peers in
+        titleView.setBind(vm: vm)
+        
+        vm.peers.bind { [weak self] peers in
             guard let self = self else { return }
-            self.dto = peers.compactMap({ $0 })
+            self.dto = peers
             self.tableView.reloadData()
         }
     }

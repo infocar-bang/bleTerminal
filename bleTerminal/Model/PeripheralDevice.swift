@@ -11,16 +11,18 @@ import CoreBluetooth
 struct PeripheralDevice: Hashable {
     let name: String
     let uuid: String
-    let rssi: String
+    let rssi: NSNumber
     
     init(peripheral: CBPeripheral, rssi: NSNumber) {
         self.name = peripheral.name ?? "Unnamed"
         self.uuid = peripheral.identifier.uuidString
-        self.rssi = rssi.stringValue
+        self.rssi = rssi
     }
-}
-
-extension PeripheralDevice: Equatable {
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(uuid)
+    }
+    
     static func ==(lhs: PeripheralDevice, rhs: PeripheralDevice) -> Bool {
         return lhs.uuid == rhs.uuid
     }

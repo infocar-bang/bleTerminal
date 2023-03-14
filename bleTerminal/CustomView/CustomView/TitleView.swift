@@ -113,6 +113,25 @@ class TitleView: UIView {
         }
     }
     
+    func setBind(vm: BaseViewModel) {
+        if let vm = vm as? MainViewModel {
+            vm.scanState.bind { [weak self] bool in
+                print(#function, "changeScanState: \(bool)")
+                
+                guard let self = self else { return }
+                if bool == true {
+                    DispatchQueue.main.async {
+                        self.processScanState()
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.processStopState()
+                    }
+                }
+            }
+        }
+    }
+    
     func setButtonAction(backButtonAction: (() -> Void)? = nil,
                          connectionButtonAction: (() -> Void)? = nil,
                          scanButtonAction: (() -> Void)? = nil,
@@ -137,14 +156,10 @@ class TitleView: UIView {
         case connectionButton:
             onDidTapConnectionButton?()
         case scanButton:
-            self.stopButton.isHidden = false
-            self.scanButton.isHidden = true
-            self.loadingIndicator.isHidden = false
+            self.processScanState()
             onDidTapScanButton?()
         case stopButton:
-            self.stopButton.isHidden = true
-            self.scanButton.isHidden = false
-            self.loadingIndicator.isHidden = true
+            self.processStopState()
             onDidTapStopButton?()
         case dataTypeButton:
             onDidTapDataTypeButton?()
@@ -152,5 +167,17 @@ class TitleView: UIView {
             onDidTapMenuButton?()
         default: return
         }
+    }
+    
+    private func processScanState() {
+        self.stopButton.isHidden = false
+        self.scanButton.isHidden = true
+        self.loadingIndicator.isHidden = false
+    }
+    
+    private func processStopState() {
+        self.stopButton.isHidden = true
+        self.scanButton.isHidden = false
+        self.loadingIndicator.isHidden = true
     }
 }

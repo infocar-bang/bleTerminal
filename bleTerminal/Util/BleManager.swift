@@ -36,8 +36,7 @@ extension BleManager: CBCentralManagerDelegate {
         print(#function, central.state.rawValue)
         switch central.state {
         case .poweredOff: return
-        case .poweredOn:
-            centralManager.scanForPeripherals(withServices: nil)
+        case .poweredOn: startScan()
         case .resetting: return
         case .unauthorized: return
         case .unknown: return

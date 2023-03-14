@@ -33,6 +33,8 @@
 		DED4CD4329BEE08300975C63 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4CD4229BEE08300975C63 /* MainViewModel.swift */; };
 		DED4CD4629BEE8FF00975C63 /* PeripheralDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4CD4529BEE8FF00975C63 /* PeripheralDevice.swift */; };
 		DED4CD4A29BF00E100975C63 /* BleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4CD4929BF00E100975C63 /* BleManager.swift */; };
+		DED4CD4E29C00D5500975C63 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4CD4D29C00D5500975C63 /* Observable.swift */; };
+		DED4CD5129C02B2D00975C63 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4CD5029C02B2D00975C63 /* BaseViewModel.swift */; };
 		DEDB051129BACA7E0074885E /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDB050F29BACA7E0074885E /* SettingTableViewCell.swift */; };
 		DEDB051229BACA7E0074885E /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEDB051029BACA7E0074885E /* SettingTableViewCell.xib */; };
 		DEDB051529BAEA1F0074885E /* SettingPopupItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDB051329BAEA1F0074885E /* SettingPopupItemTableViewCell.swift */; };
@@ -88,6 +90,8 @@
 		DED4CD4229BEE08300975C63 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		DED4CD4529BEE8FF00975C63 /* PeripheralDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralDevice.swift; sourceTree = "<group>"; };
 		DED4CD4929BF00E100975C63 /* BleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleManager.swift; sourceTree = "<group>"; };
+		DED4CD4D29C00D5500975C63 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		DED4CD5029C02B2D00975C63 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		DEDB050F29BACA7E0074885E /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		DEDB051029BACA7E0074885E /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		DEDB051329BAEA1F0074885E /* SettingPopupItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPopupItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 		DE04B17429B86C1500E49FA6 /* bleTerminal */ = {
 			isa = PBXGroup;
 			children = (
+				DED4CD4F29C02B2300975C63 /* Base */,
 				DED4CD3E29BED7C000975C63 /* Util */,
 				DE7EA48529B9A05C006415D0 /* Common */,
 				DED4CD4429BEE8CD00975C63 /* Model */,
@@ -268,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				DED4CD4929BF00E100975C63 /* BleManager.swift */,
+				DED4CD4D29C00D5500975C63 /* Observable.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -287,6 +293,14 @@
 				DED4CD4529BEE8FF00975C63 /* PeripheralDevice.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		DED4CD4F29C02B2300975C63 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				DED4CD5029C02B2D00975C63 /* BaseViewModel.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -442,6 +456,8 @@
 				DE04B18029B86C1500E49FA6 /* bleTerminal.xcdatamodeld in Sources */,
 				DE04B1B829B976C200E49FA6 /* TitleView.swift in Sources */,
 				DEA35E9129BAC5CF001BB9B3 /* SettingPopupViewController.swift in Sources */,
+				DED4CD4E29C00D5500975C63 /* Observable.swift in Sources */,
+				DED4CD5129C02B2D00975C63 /* BaseViewModel.swift in Sources */,
 				DED4CD4A29BF00E100975C63 /* BleManager.swift in Sources */,
 				DEA35E8329B9D68C001BB9B3 /* SettingsViewController.swift in Sources */,
 				DED4CD4329BEE08300975C63 /* MainViewModel.swift in Sources */,
