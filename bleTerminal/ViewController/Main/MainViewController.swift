@@ -36,16 +36,17 @@ class MainViewController: UIViewController {
     }
     
     func initView() {
-        guard let navigationControllerInstance = self.navigationController else { return }
-        self.titleView.initView(from: self.nameString, navigationController: navigationControllerInstance)
-        self.titleView.setButtonAction(
-            scanButtonAction: { [weak self] in
+        self.titleView.initView(from: self.nameString)
+        
+        self.titleView.onDidTapScanButton = { [weak self] in
             guard let self = self else { return }
             self.vm.startScan()
-        }, stopButtonAction: { [weak self] in
+        }
+        
+        self.titleView.onDidTapStopButton = { [weak self] in
             guard let self = self else { return }
             self.vm.stopScan()
-        })
+        }
     }
     
     func initTableViewCell() {
@@ -56,7 +57,7 @@ class MainViewController: UIViewController {
     func setBinding() {
         self.vm.scanState.bind { [weak self] state in
             guard let self = self else { return }
-            self.titleView.changeScanState(state)
+            self.titleView.changeScanState(to: state)
         }
         
         self.vm.peers.bind { [weak self] peers in
@@ -86,8 +87,10 @@ extension MainViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let terminalViewController = self.storyboard?.instantiateViewController(withIdentifier: "TerminalViewController") as? TerminalViewController else { return }
-        terminalViewController.peer = self.dto[indexPath.row]
-        self.navigationController?.pushViewController(terminalViewController, animated: true)
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "TerminalViewController") as? TerminalViewController else { return }
+        
+        let peer = self.dto[indexPath.row]
+        vc.vm = TerminalViewModel(peer: peer)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

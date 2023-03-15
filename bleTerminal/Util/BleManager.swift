@@ -14,9 +14,12 @@ class BleManager: NSObject {
     let centralManager = CBCentralManager()
     
     var onDidDiscoverPeripheral: ((CBPeripheral, NSNumber) -> Void)?
+    
     var onDidConnectPeripheral: ((CBPeripheral) -> Void)?
     var onDidFailToConnectPeripheral: ((CBPeripheral, Error?) -> Void)?
     var onDidDisconnectPeripheral: ((CBPeripheral, Error?) -> Void)?
+    
+    var onDidDiscoverCharacteristics: (([CBCharacteristic]?, Error?) -> Void)?
     
     override init() {
         super.init()
@@ -33,11 +36,11 @@ class BleManager: NSObject {
         centralManager.stopScan()
     }
     
-    func connect(with peripheral: CBPeripheral) {
+    func connect(to peripheral: CBPeripheral) {
         centralManager.connect(peripheral)
     }
     
-    func disconnect(with peripheral: CBPeripheral) {
+    func disconnect(from peripheral: CBPeripheral) {
         centralManager.cancelPeripheralConnection(peripheral)
     }
 }
@@ -66,6 +69,9 @@ extension BleManager: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print(#file, #function, "didConnect")
         self.onDidConnectPeripheral?(peripheral)
+        
+        peripheral.delegate = self
+        peripheral.discoverServices(nil)
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
@@ -76,5 +82,47 @@ extension BleManager: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print(#file, #function, "didDisconnect")
         self.onDidDisconnectPeripheral?(peripheral, error)
+    }
+}
+
+// MARK: - CBPeripheralDelegate
+extension BleManager: CBPeripheralDelegate {
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        guard let services = peripheral.services else { return }
+        services.forEach { service in
+            print(#file, #function, service, service.uuid.uuidString)
+            peripheral.discoverCharacteristics(nil, for: service)
+        }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        self.onDidDiscoverCharacteristics?(service.characteristics, error)
+        
+//        guard let characteristics = service.characteristics else { return }
+//        characteristics.forEach { characteristic in
+//            print(#function, characteristic)
+//            peripheral.readValue(for: characteristic)
+//        }
+        
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        guard let value = characteristic.value else { return }
+
+        var string = ""
+        value.forEach { uint8 in
+            string += String(format: "%02X ", uint8)
+        }
+        print(#function, string)
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
+        guard let value = characteristic.value else { return }
+
+        var string = ""
+        value.forEach { uint8 in
+            string += String(format: "%02X ", uint8)
+        }
+        print(#function, string)
     }
 }

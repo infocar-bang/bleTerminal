@@ -27,8 +27,12 @@ class SettingsViewController: UIViewController {
     }
     
     func initView() {
-        guard let navigationControllerInstance = self.navigationController else { return }
-        self.titleView.initView(from: self.nameString, navigationController: navigationControllerInstance)
+        self.titleView.initView(from: self.nameString)
+        
+        self.titleView.onDidTapBackButton = { [weak self] in
+            guard let self = self else { return }
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     func initTableViewCell() {

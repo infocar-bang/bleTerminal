@@ -28,10 +28,8 @@ class TitleView: UIView {
     var onDidTapDisconnectionButton: (() -> Void)?
     var onDidTapScanButton: (() -> Void)?
     var onDidTapStopButton: (() -> Void)?
-    var onDidTapDataTypeButton: (() -> Void)?
+    var onDidTapDataTypeButton: ((ReceivedDataType) -> Void)?
     var onDidTapMenuButton: (() -> Void)?
-    
-    var navigationController: UINavigationController?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,9 +49,7 @@ class TitleView: UIView {
         loadNib()
     }
     
-    func initView(from viewControllerName: String, navigationController: UINavigationController, peerName: String? = nil) {
-        self.navigationController = navigationController
-        
+    func initView(from viewControllerName: String, peerName: String? = nil) {
         switch viewControllerName {
         case "Main":
             self.stackView.layoutMargins = UIEdgeInsets(top: .zero, left: 10, bottom: .zero, right: .zero)
@@ -62,12 +58,7 @@ class TitleView: UIView {
             self.menuButton.isHidden = false
             
             let menuItems = [
-                UIAction(title: "Settings", handler: { [weak self] _ in
-                    guard let self = self else { return }
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let settingsViewController = storyboard.instantiateViewController(withIdentifier: "SettingsViewController")
-                    self.navigationController?.pushViewController(settingsViewController, animated: true)
-                }),
+                UIAction(title: "Settings", handler: { _ in }),
                 UIAction(title: "View More", handler: { _ in })
             ]
             self.menuButton.showsMenuAsPrimaryAction = true
@@ -84,12 +75,18 @@ class TitleView: UIView {
                 self.connectionStateLabel.text = ConnectionState.CONNECTING.titleString + peerName
             }
             
-            let commandTypeItems = [
-                UIAction(title: "ASCII", handler: { _ in }),
-                UIAction(title: "HEX", handler: { _ in })
+            let dataTypeItems = [
+                UIAction(title: "ASCII", handler: { [weak self] _ in
+                    guard let self = self else { return }
+                    self.onDidTapDataTypeButton?(.ASCII)
+                }),
+                UIAction(title: "HEX", handler: { [weak self] _ in
+                    guard let self = self else { return }
+                    self.onDidTapDataTypeButton?(.HEX)
+                })
             ]
             self.dataTypeButton.showsMenuAsPrimaryAction = true
-            self.dataTypeButton.menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: commandTypeItems)
+            self.dataTypeButton.menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: dataTypeItems)
             
             let menuItems = [
                 UIAction(title: "Clear", handler: { _ in }),
@@ -107,34 +104,15 @@ class TitleView: UIView {
             return
         }
         
-        [ backButton, connectionButton, disconnectionButton, scanButton, stopButton, menuButton ].forEach { button in
+        [ backButton, connectionButton, disconnectionButton, scanButton, stopButton ].forEach { button in
             button?.addTarget(self, action: #selector(buttonActionHandler), for: .touchUpInside)
         }
-    }
-    
-    func setButtonAction(backButtonAction: (() -> Void)? = nil,
-                         connectionButtonAction: (() -> Void)? = nil,
-                         disconnectionButtonAction: (() -> Void)? = nil,
-                         scanButtonAction: (() -> Void)? = nil,
-                         stopButtonAction: (() -> Void)? = nil,
-                         dataTypeButtonAction: (() -> Void)? = nil,
-                         menuButtonAction: (() -> Void)? = nil) {
-        
-        self.onDidTapBackButton = backButtonAction
-        self.onDidTapConnectionButton = connectionButtonAction
-        self.onDidTapDisconnectionButton = disconnectionButtonAction
-        self.onDidTapScanButton = scanButtonAction
-        self.onDidTapStopButton = stopButtonAction
-        self.onDidTapDataTypeButton = dataTypeButtonAction
-        self.onDidTapMenuButton = menuButtonAction
     }
     
     @objc func buttonActionHandler(_ sender: UIButton) {
         switch sender {
         case backButton:
             onDidTapBackButton?()
-            guard let navigationController = self.navigationController else { return }
-            navigationController.popViewController(animated: true)
         case connectionButton:
             onDidTapConnectionButton?()
         case disconnectionButton:
@@ -143,15 +121,11 @@ class TitleView: UIView {
             onDidTapScanButton?()
         case stopButton:
             onDidTapStopButton?()
-        case dataTypeButton:
-            onDidTapDataTypeButton?()
-        case menuButton:
-            onDidTapMenuButton?()
         default: return
         }
     }
     
-    func changeScanState(_ state: ScanState) {
+    func changeScanState(to state: ScanState) {
         DispatchQueue.main.async {
             switch state {
             case .SCAN:
@@ -166,7 +140,7 @@ class TitleView: UIView {
         }
     }
     
-    func changeConnectionState(_ state: ConnectionState, peerName: String) {
+    func changeConnectionState(to state: ConnectionState, peerName: String) {
         DispatchQueue.main.async {
             self.connectionStateLabel.text = state.titleString + peerName
             
@@ -180,6 +154,12 @@ class TitleView: UIView {
             case .CONNECTING:
                 return
             }
+        }
+    }
+    
+    func changeDataType(to type: ReceivedDataType) {
+        DispatchQueue.main.async {
+            self.dataTypeButton.setTitle(type.stringValue, for: .normal)
         }
     }
 }

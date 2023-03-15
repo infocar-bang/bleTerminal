@@ -9,7 +9,10 @@ import UIKit
 
 class NavigationController: UINavigationController {
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         self.navigationBar.isHidden = true
+        self.interactivePopGestureRecognizer?.isEnabled = false
     }
 }

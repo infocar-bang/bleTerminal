@@ -25,8 +25,9 @@ class TerminalViewController: UIViewController {
     
     @IBOutlet weak var macroContainer: UIView!
     
-    let vm = TerminalViewModel()
-    var peer: Peer!
+    var vm: TerminalViewModel!
+    
+    var dto: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +36,7 @@ class TerminalViewController: UIViewController {
         initTableViewCell()
         setBinding()
     
-        vm.connect(with: peer)
+        vm.connectToPeer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,25 +58,28 @@ class TerminalViewController: UIViewController {
     }
     
     func initView() {
-        guard let navigationControllerInstance = self.navigationController else { return }
-        self.titleView.initView(from: self.nameString, navigationController: navigationControllerInstance, peerName: peer.name)
-        self.titleView.setButtonAction(
-            backButtonAction: { [weak self] in
-                guard let self = self else { return }
-                // try to disconnect with peer
-                self.vm.disconnect(with: self.peer)
-            }, connectionButtonAction: { [weak self] in
-                guard let self = self else { return }
-                // try to connect with peer
-                self.vm.connect(with: self.peer)
-            }, disconnectionButtonAction: { [weak self] in
-                guard let self = self else { return }
-                // try to connect with peer
-                self.vm.disconnect(with: self.peer)
-            }, menuButtonAction: {
-                
-            }
-        )
+        self.titleView.initView(from: self.nameString, peerName: self.vm.peer.name)
+        
+        self.titleView.onDidTapBackButton = { [weak self] in
+            guard let self = self else { return }
+            self.vm.disconnectFromPeer()
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        self.titleView.onDidTapConnectionButton = { [weak self] in
+            guard let self = self else { return }
+            self.vm.connectToPeer()
+        }
+        
+        self.titleView.onDidTapDisconnectionButton = { [weak self] in
+            guard let self = self else { return }
+            self.vm.disconnectFromPeer()
+        }
+        
+        self.titleView.onDidTapDataTypeButton = { [weak self] type in
+            guard let self = self else { return }
+            self.vm.setReceivedDataType(type)
+        }
         
         [ view, checkBoxContainer ].forEach { view in
             view?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapGestureHandler)))
@@ -94,7 +98,7 @@ class TerminalViewController: UIViewController {
     func setBinding() {
         self.vm.connectionState.bind { [weak self] state in
             guard let self = self else { return }
-            self.titleView.changeConnectionState(state, peerName: self.peer.name)
+            self.titleView.changeConnectionState(to: state, peerName: self.vm.peer.name)
             
             switch state {
             case .CONNECTING:
@@ -104,8 +108,26 @@ class TerminalViewController: UIViewController {
                 
             case .CONNECTED:
                 self.presentedViewController?.dismiss(animated: false)
+                
             case .DISCONNECTED:
                 return
+            }
+        }
+        
+        self.vm.receivedDataType.bind { [weak self] type in
+            guard let self = self else { return }
+            self.titleView.changeDataType(to: type)
+        }
+        
+        self.vm.commands.bind { [weak self] commands in
+            guard let self = self else { return }
+            self.dto = commands
+            self.tableView.reloadData()
+            
+            // 마지막에 작성된 Command의 셀로 포커스 이동
+            let numberOfRows = self.tableView.numberOfRows(inSection: .zero)
+            if numberOfRows > 0 {
+                self.tableView.scrollToRow(at: IndexPath(row: numberOfRows - 1, section: .zero), at: .bottom, animated: true)
             }
         }
     }
@@ -126,8 +148,8 @@ class TerminalViewController: UIViewController {
         case selectPropertiesButton:
             return
         case sendCommandButton:
-            // TODO: text field의 text를 vm에 전달 -> vm에서 table view의 data로 저장 -> table view reload
-            return
+            self.vm.sendCommand(self.commandTextField.text)
+            self.commandTextField.text = ""
         default:
             return
         }
@@ -149,6 +171,11 @@ class TerminalViewController: UIViewController {
         self.terminalViewHeightContraint.constant = 0
         self.tableView.isHidden = false
         self.coverView.isHidden = true
+        
+        let numberOfRows = self.tableView.numberOfRows(inSection: .zero)
+        if numberOfRows > 0 {
+            self.tableView.scrollToRow(at: IndexPath(row: numberOfRows - 1, section: .zero), at: .bottom, animated: true)
+        }
     }
 }
 
@@ -163,23 +190,14 @@ extension TerminalViewController: UITextFieldDelegate {
 // MARK: - UITableViewDataSource
 extension TerminalViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return self.dto.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TerminalCommandTableViewCell else {
             return UITableViewCell()
         }
-        
-        switch indexPath.row {
-        case 0:
-            cell.set(command: "yhugvvvvv dfdfadfea e aefakdfjlejalk e akdjf lakjf elakf ekldfafd")
-        case 1:
-            cell.set(command: "dafeflkajfehjakehfkeahfjkehakjefhkahfkeajhfkehfkeahfkaehfkeh")
-        default:
-            cell.set(command: "d")
-        }
-        
+        cell.set(command: self.dto[indexPath.row])
         return cell
     }
 }

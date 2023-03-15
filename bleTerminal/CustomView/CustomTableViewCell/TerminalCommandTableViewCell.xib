@@ -16,20 +16,29 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ASCII:" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fwL-1N-YVW">
-                        <rect key="frame" x="285.66666666666669" y="0.0" width="34.333333333333314" height="40"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="in7-aI-JkR">
+                        <rect key="frame" x="281.66666666666669" y="0.0" width="38.333333333333314" height="42"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ASCII:" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fwL-1N-YVW">
+                                <rect key="frame" x="2" y="0.0" width="34.333333333333336" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="fwL-1N-YVW" secondAttribute="trailing" constant="2" id="4Sx-qD-kp9"/>
+                            <constraint firstAttribute="bottom" secondItem="fwL-1N-YVW" secondAttribute="bottom" id="Ldb-md-ggr"/>
+                            <constraint firstItem="fwL-1N-YVW" firstAttribute="top" secondItem="in7-aI-JkR" secondAttribute="top" id="NhP-QL-HYI"/>
+                            <constraint firstItem="fwL-1N-YVW" firstAttribute="leading" secondItem="in7-aI-JkR" secondAttribute="leading" constant="2" id="yxe-Pj-0QO"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="fwL-1N-YVW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Mhh-Gh-ptY"/>
-                    <constraint firstAttribute="bottom" secondItem="fwL-1N-YVW" secondAttribute="bottom" constant="4" id="ODL-ez-zjE"/>
-                    <constraint firstAttribute="trailing" secondItem="fwL-1N-YVW" secondAttribute="trailing" id="RV9-Ed-gCw"/>
-                    <constraint firstAttribute="height" secondItem="fwL-1N-YVW" secondAttribute="height" constant="4" id="Rfo-6q-C9S"/>
-                    <constraint firstItem="fwL-1N-YVW" firstAttribute="width" relation="lessThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="width" id="oHf-EZ-ayo"/>
+                    <constraint firstAttribute="bottom" secondItem="in7-aI-JkR" secondAttribute="bottom" constant="2" id="5UA-D0-3MM"/>
+                    <constraint firstAttribute="trailing" secondItem="in7-aI-JkR" secondAttribute="trailing" id="Oji-AB-8Ub"/>
+                    <constraint firstItem="in7-aI-JkR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="POJ-Fi-PWw"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
