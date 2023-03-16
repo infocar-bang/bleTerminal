@@ -119,6 +119,13 @@ class TerminalViewController: UIViewController {
             self.titleView.changeDataType(to: type)
         }
         
+        self.vm.receivedData.bind { [weak self] string in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.responseLabel.text = string
+            }
+        }
+        
         self.vm.commands.bind { [weak self] commands in
             guard let self = self else { return }
             self.dto = commands

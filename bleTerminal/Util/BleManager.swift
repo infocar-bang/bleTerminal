@@ -88,41 +88,51 @@ extension BleManager: CBCentralManagerDelegate {
 // MARK: - CBPeripheralDelegate
 extension BleManager: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        if let error = error {
+            print(#function, error.localizedDescription)
+            return
+        }
+        
         guard let services = peripheral.services else { return }
         services.forEach { service in
-            print(#file, #function, service, service.uuid.uuidString)
             peripheral.discoverCharacteristics(nil, for: service)
         }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        if let error = error {
+            print(#function, error.localizedDescription)
+            return
+        }
+        
         self.onDidDiscoverCharacteristics?(service.characteristics, error)
-        
-//        guard let characteristics = service.characteristics else { return }
-//        characteristics.forEach { characteristic in
-//            print(#function, characteristic)
-//            peripheral.readValue(for: characteristic)
-//        }
-        
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        guard let value = characteristic.value else { return }
-
-        var string = ""
-        value.forEach { uint8 in
-            string += String(format: "%02X ", uint8)
+        if let error = error {
+            print(#function, characteristic, error.localizedDescription)
+            return
         }
-        print(#function, string)
+
+        guard let value = characteristic.value else { return }
+        if let string = String(bytes: value, encoding: .utf8) {
+            print(#function, string)
+        }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
+        if let error = error {
+            print(#function, characteristic, error.localizedDescription)
+            return
+        }
+        
+        print(#function, characteristic)
         guard let value = characteristic.value else { return }
 
         var string = ""
         value.forEach { uint8 in
             string += String(format: "%02X ", uint8)
         }
-        print(#function, string)
+        print(#function, characteristic, string)
     }
 }

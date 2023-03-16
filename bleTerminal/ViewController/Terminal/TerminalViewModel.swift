@@ -13,6 +13,7 @@ class TerminalViewModel: BaseViewModel {
     var connectionState: Observable<ConnectionState> = Observable(.DISCONNECTED)
     var commands: Observable<[String]> = Observable([])
     var receivedDataType: Observable<ReceivedDataType> = Observable(.ASCII)
+    var receivedData: Observable<String> = Observable("")
     
     let peer: Peer
     
@@ -56,7 +57,11 @@ class TerminalViewModel: BaseViewModel {
                 return
             }
             guard let characteristics = characteristics else { return }
-            self.characteristics = characteristics
+            self.characteristics.append(contentsOf: characteristics)
+            characteristics.forEach { characteristic in
+                self.peer.peripheral.setNotifyValue(true, for: characteristic)
+                self.receivedData.value += characteristic.description + "\n"
+            }
         }
     }
     
@@ -77,15 +82,30 @@ class TerminalViewModel: BaseViewModel {
     
     func sendCommand(_ command: String?) {
         guard connectionState.value == .CONNECTED else { return }
-        guard let command = command,
-              command.isEmpty == false,
-              let data = command.data(using: .utf8) else { return }
-         
-        // TerminalViewController의 TableView에 노출되는 보낸 명령어 리스트 추가
-        self.commands.value.append(command)
+        guard let command = command else { return }
         
-        //
-        self.peer.peripheral.writeValue(data, for: self.characteristics[0], type: .withResponse)
+        let trimmedCommand = command.trimmingCharacters(in: .whitespaces) + "\r"
+        guard trimmedCommand.isEmpty == false,
+              let data = trimmedCommand.data(using: .utf8) else { return }
+        
+        // TODO: Charateristic 선택 화면 구현
+        let writeUUID = CBUUID(string: "FFF2")
+        var writeCharacteristic: CBCharacteristic?
+        self.characteristics.forEach { characteristic in
+            if characteristic.uuid == writeUUID {
+                writeCharacteristic = characteristic
+            }
+        }
+        
+        if writeCharacteristic == nil {
+            return
+        }
+        
+        // TerminalViewController의 TableView에 노출되는 보낸 명령어 리스트 추가
+        self.commands.value.append(trimmedCommand)
+        
+        // Write Command
+        self.peer.peripheral.writeValue(data, for: writeCharacteristic!, type: .withResponse)
         self.peer.peripheral.delegate = self.bleManager
     }
 }
