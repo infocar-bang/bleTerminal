@@ -270,23 +270,22 @@
                                 <rect key="frame" x="4" y="151" width="385" height="308"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="dUC-oF-hcB">
-                                        <rect key="frame" x="0.0" y="0.0" width="385" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="385" height="308"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Opt-0S-xM9">
-                                                <rect key="frame" x="0.0" y="0.0" width="385" height="0.0"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpY-7b-z8c">
+                                                <rect key="frame" x="0.0" y="0.0" width="385" height="308"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <color key="tintColor" systemColor="systemBackgroundColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" systemColor="systemBackgroundColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="Opt-0S-xM9" firstAttribute="leading" secondItem="dUC-oF-hcB" secondAttribute="leading" id="B3t-gP-4o3"/>
-                                            <constraint firstAttribute="trailing" secondItem="Opt-0S-xM9" secondAttribute="trailing" id="MsM-s6-bwj"/>
-                                            <constraint firstAttribute="height" secondItem="Opt-0S-xM9" secondAttribute="height" id="g6p-Za-tUk"/>
-                                            <constraint firstItem="Opt-0S-xM9" firstAttribute="width" secondItem="dUC-oF-hcB" secondAttribute="width" id="xKO-xR-848"/>
-                                            <constraint firstItem="Opt-0S-xM9" firstAttribute="top" secondItem="dUC-oF-hcB" secondAttribute="top" id="xu0-gL-xwA"/>
+                                            <constraint firstItem="bpY-7b-z8c" firstAttribute="height" secondItem="dUC-oF-hcB" secondAttribute="height" id="409-hp-fpG"/>
+                                            <constraint firstAttribute="trailing" secondItem="bpY-7b-z8c" secondAttribute="trailing" id="MPY-p8-DeI"/>
+                                            <constraint firstItem="bpY-7b-z8c" firstAttribute="width" secondItem="dUC-oF-hcB" secondAttribute="width" id="bkD-v8-wzR"/>
+                                            <constraint firstItem="bpY-7b-z8c" firstAttribute="leading" secondItem="dUC-oF-hcB" secondAttribute="leading" id="cMX-N6-0dL"/>
+                                            <constraint firstItem="bpY-7b-z8c" firstAttribute="top" secondItem="dUC-oF-hcB" secondAttribute="top" id="yoX-5o-ZwA"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -297,6 +296,7 @@
                                     <constraint firstItem="dUC-oF-hcB" firstAttribute="width" secondItem="ejR-ag-bdT" secondAttribute="width" id="QxY-1G-Z68"/>
                                     <constraint firstItem="dUC-oF-hcB" firstAttribute="bottom" secondItem="oN3-g1-gJz" secondAttribute="bottom" id="Sfx-9K-zpG"/>
                                     <constraint firstItem="dUC-oF-hcB" firstAttribute="top" secondItem="oN3-g1-gJz" secondAttribute="top" id="XPw-RU-VtO"/>
+                                    <constraint firstItem="dUC-oF-hcB" firstAttribute="height" secondItem="ejR-ag-bdT" secondAttribute="height" id="tQP-Xa-Rc9"/>
                                     <constraint firstItem="dUC-oF-hcB" firstAttribute="trailing" secondItem="oN3-g1-gJz" secondAttribute="trailing" id="x87-34-MFg"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="oN3-g1-gJz"/>
@@ -670,7 +670,7 @@
                         <outlet property="coverView" destination="GAg-bq-BXa" id="Cb7-Uz-0M5"/>
                         <outlet property="interactionContainer" destination="ohn-j9-Lt0" id="lej-pK-qBP"/>
                         <outlet property="macroContainer" destination="eDp-wL-ENY" id="9zM-8B-UWo"/>
-                        <outlet property="responseLabel" destination="Opt-0S-xM9" id="l7W-E8-Vop"/>
+                        <outlet property="responseTextView" destination="bpY-7b-z8c" id="65R-sk-7n0"/>
                         <outlet property="selectPropertiesButton" destination="G85-2i-X89" id="jxV-ZY-Bjx"/>
                         <outlet property="sendCommandButton" destination="ogk-T2-gd1" id="SCj-Jj-boD"/>
                         <outlet property="tableView" destination="goj-Cy-dfW" id="Rli-hI-s3g"/>

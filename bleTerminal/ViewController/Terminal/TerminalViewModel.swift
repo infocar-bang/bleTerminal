@@ -13,11 +13,12 @@ class TerminalViewModel: BaseViewModel {
     var connectionState: Observable<ConnectionState> = Observable(.DISCONNECTED)
     var commands: Observable<[String]> = Observable([])
     var receivedDataType: Observable<ReceivedDataType> = Observable(.ASCII)
-    var receivedData: Observable<String> = Observable("")
+    var responseContent: Observable<String> = Observable("")
+    var isAutoScroll: Observable<Bool> = Observable(false)
     
     let peer: Peer
-    
     var characteristics: [CBCharacteristic] = []
+    var receivedString: String = ""
     
     init(peer: Peer) {
         self.peer = peer
@@ -60,7 +61,24 @@ class TerminalViewModel: BaseViewModel {
             self.characteristics.append(contentsOf: characteristics)
             characteristics.forEach { characteristic in
                 self.peer.peripheral.setNotifyValue(true, for: characteristic)
-                self.receivedData.value += characteristic.description + "\n"
+            }
+        }
+        
+        self.bleManager.onDidReceivedMessage = { [weak self] data, error in
+            guard let self = self else { return }
+            if let error = error {
+                print(#file, #function, error.localizedDescription)
+                return
+            }
+            guard let data = data else { return }
+            if let string = String(bytes: data, encoding: .utf8) {
+                self.receivedString += string
+            }
+            
+            if self.checkEndBytes(data: data) == true {
+                self.receivedString.removeLast(2)
+                self.responseContent.value += "[\(Date().formatted().description)] \(self.receivedString)\n"
+                self.receivedString = ""
             }
         }
     }
@@ -80,6 +98,10 @@ class TerminalViewModel: BaseViewModel {
         self.bleManager.disconnect(from: self.peer.peripheral)
     }
     
+    func changeAutoScrollOption() {
+        self.isAutoScroll.value = !self.isAutoScroll.value
+    }
+    
     func sendCommand(_ command: String?) {
         guard connectionState.value == .CONNECTED else { return }
         guard let command = command else { return }
@@ -96,16 +118,22 @@ class TerminalViewModel: BaseViewModel {
                 writeCharacteristic = characteristic
             }
         }
-        
-        if writeCharacteristic == nil {
-            return
-        }
+        if writeCharacteristic == nil { return }
         
         // TerminalViewController의 TableView에 노출되는 보낸 명령어 리스트 추가
-        self.commands.value.append(trimmedCommand)
+        self.commands.value.append(command)
         
         // Write Command
         self.peer.peripheral.writeValue(data, for: writeCharacteristic!, type: .withResponse)
         self.peer.peripheral.delegate = self.bleManager
+    }
+    
+    private func checkEndBytes(data: Data) -> Bool {
+        if data.count < 2 { return false }
+        
+        let lastTwoBytes = data.suffix(2)
+        let targetBytes: [UInt8] = [0x0d, 0x3e]
+        
+        return lastTwoBytes.elementsEqual(targetBytes)
     }
 }

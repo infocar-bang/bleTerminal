@@ -21,6 +21,8 @@ class BleManager: NSObject {
     
     var onDidDiscoverCharacteristics: (([CBCharacteristic]?, Error?) -> Void)?
     
+    var onDidReceivedMessage: ((Data?, Error?) -> Void)?
+    
     override init() {
         super.init()
         centralManager.delegate = self
@@ -114,10 +116,9 @@ extension BleManager: CBPeripheralDelegate {
             return
         }
 
+        print(#function, characteristic)
         guard let value = characteristic.value else { return }
-        if let string = String(bytes: value, encoding: .utf8) {
-            print(#function, string)
-        }
+        self.onDidReceivedMessage?(value, error)
     }
     
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -126,13 +127,9 @@ extension BleManager: CBPeripheralDelegate {
             return
         }
         
-        print(#function, characteristic)
         guard let value = characteristic.value else { return }
-
-        var string = ""
-        value.forEach { uint8 in
-            string += String(format: "%02X ", uint8)
+        if let string = String(bytes: value, encoding: .utf8) {
+            print(#function, string)
         }
-        print(#function, characteristic, string)
     }
 }

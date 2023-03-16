@@ -12,7 +12,7 @@ class TerminalViewController: UIViewController {
     
     @IBOutlet weak var terminalView: UIScrollView!
     @IBOutlet weak var terminalViewHeightContraint: NSLayoutConstraint!
-    @IBOutlet weak var responseLabel: UILabel!
+    @IBOutlet weak var responseTextView: UITextView!
     
     @IBOutlet weak var interactionContainer: UIView!
     @IBOutlet weak var checkBoxContainer: UIStackView!
@@ -28,6 +28,7 @@ class TerminalViewController: UIViewController {
     var vm: TerminalViewModel!
     
     var dto: [String] = []
+    var isAutoScroll = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,10 +120,14 @@ class TerminalViewController: UIViewController {
             self.titleView.changeDataType(to: type)
         }
         
-        self.vm.receivedData.bind { [weak self] string in
+        self.vm.responseContent.bind { [weak self] string in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                self.responseLabel.text = string
+                self.responseTextView.text = string
+                
+                if self.isAutoScroll {
+                    self.applyAutoScroll()
+                }
             }
         }
         
@@ -137,6 +142,20 @@ class TerminalViewController: UIViewController {
                 self.tableView.scrollToRow(at: IndexPath(row: numberOfRows - 1, section: .zero), at: .bottom, animated: true)
             }
         }
+        
+        self.vm.isAutoScroll.bind { [weak self] bool in
+            guard let self = self else { return }
+            self.isAutoScroll = bool
+            
+            DispatchQueue.main.async {
+                if bool == true {
+                    self.checkBoxImageView.image = UIImage(systemName: "checkmark.square.fill")
+                    self.applyAutoScroll()
+                } else {
+                    self.checkBoxImageView.image = UIImage(systemName: "square")
+                }
+            }
+        }
     }
     
     @objc func tapGestureHandler(_ recognizer: UITapGestureRecognizer) {
@@ -144,8 +163,7 @@ class TerminalViewController: UIViewController {
         case view:
             view.endEditing(true)
         case checkBoxContainer:
-            // TODO: vm에 탭 됐다고 전달 -> vm 에서 관련 변수 수정 -> observe로 확인 후 변경(아래 코드는 이동해야함)
-            self.checkBoxImageView.image = UIImage(systemName: "checkmark.square.fill")
+            vm.changeAutoScrollOption()
         default: return
         }
     }
@@ -182,6 +200,13 @@ class TerminalViewController: UIViewController {
         let numberOfRows = self.tableView.numberOfRows(inSection: .zero)
         if numberOfRows > 0 {
             self.tableView.scrollToRow(at: IndexPath(row: numberOfRows - 1, section: .zero), at: .bottom, animated: true)
+        }
+    }
+    
+    private func applyAutoScroll() {
+        if self.responseTextView.contentSize.height > self.responseTextView.bounds.height {
+            let bottomOffset = CGPoint(x: 0, y: self.responseTextView.contentSize.height - self.responseTextView.bounds.height)
+            self.responseTextView.setContentOffset(bottomOffset, animated: true)
         }
     }
 }
