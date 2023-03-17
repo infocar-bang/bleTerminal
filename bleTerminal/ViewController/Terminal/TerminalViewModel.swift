@@ -138,9 +138,9 @@ class TerminalViewModel: BaseViewModel {
         guard connectionState.value == .CONNECTED else { return }
         guard let command = command else { return }
         
-        let trimmedCommand = command.trimmingCharacters(in: .whitespaces) + "\r"
+        let trimmedCommand = command.trimmingCharacters(in: .whitespaces)
         guard trimmedCommand.isEmpty == false,
-              let data = trimmedCommand.data(using: .utf8) else { return }
+              let data = (trimmedCommand + "\r").data(using: .utf8) else { return }
         
         // TerminalViewController의 TableView에 노출되는 보낸 명령어 리스트 추가
         self.commands.value.append(command)
