@@ -73,7 +73,6 @@ extension BleManager: CBCentralManagerDelegate {
         self.onDidConnectPeripheral?(peripheral)
         
         peripheral.delegate = self
-        peripheral.discoverServices(nil)
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {

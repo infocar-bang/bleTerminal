@@ -25,6 +25,10 @@
 		DE47894D29C05E4600B5DD9B /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE47894C29C05E4600B5DD9B /* ConnectionState.swift */; };
 		DE47894F29C1372200B5DD9B /* ScanState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE47894E29C1372200B5DD9B /* ScanState.swift */; };
 		DE47895129C1A03100B5DD9B /* ReceivedDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE47895029C1A03100B5DD9B /* ReceivedDataType.swift */; };
+		DE47895329C2D54500B5DD9B /* TerminalPropertyPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE47895229C2D54500B5DD9B /* TerminalPropertyPopupViewController.swift */; };
+		DE47895629C2D9D400B5DD9B /* TerminalPropertyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE47895429C2D9D400B5DD9B /* TerminalPropertyTableViewCell.swift */; };
+		DE47895729C2D9D400B5DD9B /* TerminalPropertyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE47895529C2D9D400B5DD9B /* TerminalPropertyTableViewCell.xib */; };
+		DE47895A29C2E1EC00B5DD9B /* ServiceProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE47895929C2E1EC00B5DD9B /* ServiceProperty.swift */; };
 		DE7EA48429B99B52006415D0 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7EA48329B99B52006415D0 /* NavigationController.swift */; };
 		DE7EA48829B9A089006415D0 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7EA48729B9A089006415D0 /* UIViewController+Extension.swift */; };
 		DEA35E8329B9D68C001BB9B3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA35E8229B9D68C001BB9B3 /* SettingsViewController.swift */; };
@@ -39,7 +43,7 @@
 		DED4CD4A29BF00E100975C63 /* BleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4CD4929BF00E100975C63 /* BleManager.swift */; };
 		DED4CD4E29C00D5500975C63 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4CD4D29C00D5500975C63 /* Observable.swift */; };
 		DED4CD5129C02B2D00975C63 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4CD5029C02B2D00975C63 /* BaseViewModel.swift */; };
-		DED4CD5329C04CDF00975C63 /* TerminalPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4CD5229C04CDF00975C63 /* TerminalPopupViewController.swift */; };
+		DED4CD5329C04CDF00975C63 /* TerminalConnectionPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4CD5229C04CDF00975C63 /* TerminalConnectionPopupViewController.swift */; };
 		DEDB051129BACA7E0074885E /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDB050F29BACA7E0074885E /* SettingTableViewCell.swift */; };
 		DEDB051229BACA7E0074885E /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEDB051029BACA7E0074885E /* SettingTableViewCell.xib */; };
 		DEDB051529BAEA1F0074885E /* SettingPopupItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDB051329BAEA1F0074885E /* SettingPopupItemTableViewCell.swift */; };
@@ -87,6 +91,10 @@
 		DE47894C29C05E4600B5DD9B /* ConnectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionState.swift; sourceTree = "<group>"; };
 		DE47894E29C1372200B5DD9B /* ScanState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanState.swift; sourceTree = "<group>"; };
 		DE47895029C1A03100B5DD9B /* ReceivedDataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedDataType.swift; sourceTree = "<group>"; };
+		DE47895229C2D54500B5DD9B /* TerminalPropertyPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalPropertyPopupViewController.swift; sourceTree = "<group>"; };
+		DE47895429C2D9D400B5DD9B /* TerminalPropertyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalPropertyTableViewCell.swift; sourceTree = "<group>"; };
+		DE47895529C2D9D400B5DD9B /* TerminalPropertyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TerminalPropertyTableViewCell.xib; sourceTree = "<group>"; };
+		DE47895929C2E1EC00B5DD9B /* ServiceProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProperty.swift; sourceTree = "<group>"; };
 		DE7EA48329B99B52006415D0 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		DE7EA48729B9A089006415D0 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DEA35E8229B9D68C001BB9B3 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -101,7 +109,7 @@
 		DED4CD4929BF00E100975C63 /* BleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleManager.swift; sourceTree = "<group>"; };
 		DED4CD4D29C00D5500975C63 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		DED4CD5029C02B2D00975C63 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
-		DED4CD5229C04CDF00975C63 /* TerminalPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalPopupViewController.swift; sourceTree = "<group>"; };
+		DED4CD5229C04CDF00975C63 /* TerminalConnectionPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalConnectionPopupViewController.swift; sourceTree = "<group>"; };
 		DEDB050F29BACA7E0074885E /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		DEDB051029BACA7E0074885E /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		DEDB051329BAEA1F0074885E /* SettingPopupItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPopupItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -240,7 +248,8 @@
 			isa = PBXGroup;
 			children = (
 				DEDB051729BAF3280074885E /* TerminalViewController.swift */,
-				DED4CD5229C04CDF00975C63 /* TerminalPopupViewController.swift */,
+				DED4CD5229C04CDF00975C63 /* TerminalConnectionPopupViewController.swift */,
+				DE47895229C2D54500B5DD9B /* TerminalPropertyPopupViewController.swift */,
 				DE0EB42B29C0526200BAD845 /* TerminalViewModel.swift */,
 			);
 			path = Terminal;
@@ -254,6 +263,15 @@
 				DE47895029C1A03100B5DD9B /* ReceivedDataType.swift */,
 			);
 			path = Enum;
+			sourceTree = "<group>";
+		};
+		DE47895829C2E1A200B5DD9B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				DED4CD4529BEE8FF00975C63 /* Peer.swift */,
+				DE47895929C2E1EC00B5DD9B /* ServiceProperty.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		DE7EA48529B9A05C006415D0 /* Common */ = {
@@ -286,6 +304,8 @@
 				DEDB051429BAEA1F0074885E /* SettingPopupItemTableViewCell.xib */,
 				DED4CD3A29BEBE1600975C63 /* TerminalCommandTableViewCell.swift */,
 				DED4CD3B29BEBE1600975C63 /* TerminalCommandTableViewCell.xib */,
+				DE47895429C2D9D400B5DD9B /* TerminalPropertyTableViewCell.swift */,
+				DE47895529C2D9D400B5DD9B /* TerminalPropertyTableViewCell.xib */,
 			);
 			path = CustomTableViewCell;
 			sourceTree = "<group>";
@@ -320,8 +340,8 @@
 		DED4CD4429BEE8CD00975C63 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DE47895829C2E1A200B5DD9B /* Data */,
 				DE47894B29C05E3000B5DD9B /* Enum */,
-				DED4CD4529BEE8FF00975C63 /* Peer.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -440,6 +460,7 @@
 			files = (
 				DE04B18529B86C1600E49FA6 /* LaunchScreen.storyboard in Resources */,
 				DED4CD3D29BEBE1600975C63 /* TerminalCommandTableViewCell.xib in Resources */,
+				DE47895729C2D9D400B5DD9B /* TerminalPropertyTableViewCell.xib in Resources */,
 				DE04B18229B86C1600E49FA6 /* Assets.xcassets in Resources */,
 				DEDB051629BAEA1F0074885E /* SettingPopupItemTableViewCell.xib in Resources */,
 				DEA35E8729BAB24C001BB9B3 /* SettingTableViewSwitchCell.xib in Resources */,
@@ -476,22 +497,25 @@
 				DE7EA48829B9A089006415D0 /* UIViewController+Extension.swift in Sources */,
 				DE04B17A29B86C1500E49FA6 /* MainViewController.swift in Sources */,
 				DE04B1AF29B8749200E49FA6 /* BleListTableViewCell.swift in Sources */,
-				DED4CD5329C04CDF00975C63 /* TerminalPopupViewController.swift in Sources */,
+				DED4CD5329C04CDF00975C63 /* TerminalConnectionPopupViewController.swift in Sources */,
 				DE04B17629B86C1500E49FA6 /* AppDelegate.swift in Sources */,
 				DEDB051529BAEA1F0074885E /* SettingPopupItemTableViewCell.swift in Sources */,
 				DE04B17829B86C1500E49FA6 /* SceneDelegate.swift in Sources */,
 				DED4CD3C29BEBE1600975C63 /* TerminalCommandTableViewCell.swift in Sources */,
 				DEA35E8F29BABDBB001BB9B3 /* UIView+Extension.swift in Sources */,
 				DE7EA48429B99B52006415D0 /* NavigationController.swift in Sources */,
+				DE47895A29C2E1EC00B5DD9B /* ServiceProperty.swift in Sources */,
 				DEA35E8629BAB24C001BB9B3 /* SettingTableViewSwitchCell.swift in Sources */,
 				DEDB051129BACA7E0074885E /* SettingTableViewCell.swift in Sources */,
 				DED4CD4629BEE8FF00975C63 /* Peer.swift in Sources */,
 				DE04B18029B86C1500E49FA6 /* bleTerminal.xcdatamodeld in Sources */,
+				DE47895329C2D54500B5DD9B /* TerminalPropertyPopupViewController.swift in Sources */,
 				DE47895129C1A03100B5DD9B /* ReceivedDataType.swift in Sources */,
 				DE04B1B829B976C200E49FA6 /* TitleView.swift in Sources */,
 				DE47894F29C1372200B5DD9B /* ScanState.swift in Sources */,
 				DE47894D29C05E4600B5DD9B /* ConnectionState.swift in Sources */,
 				DEA35E9129BAC5CF001BB9B3 /* SettingPopupViewController.swift in Sources */,
+				DE47895629C2D9D400B5DD9B /* TerminalPropertyTableViewCell.swift in Sources */,
 				DED4CD4E29C00D5500975C63 /* Observable.swift in Sources */,
 				DED4CD5129C02B2D00975C63 /* BaseViewModel.swift in Sources */,
 				DED4CD4A29BF00E100975C63 /* BleManager.swift in Sources */,

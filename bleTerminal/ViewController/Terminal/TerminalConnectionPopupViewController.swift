@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TerminalPopupViewController: UIViewController {
+class TerminalConnectionPopupViewController: UIViewController {
     @IBOutlet weak var popupView: UIView!
     
     override func viewDidLoad() {

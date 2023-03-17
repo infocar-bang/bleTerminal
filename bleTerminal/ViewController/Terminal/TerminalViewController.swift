@@ -103,10 +103,10 @@ class TerminalViewController: UIViewController {
             
             switch state {
             case .CONNECTING:
-                guard let popupVC = self.storyboard?.instantiateViewController(withIdentifier: "TerminalPopupViewController") as? TerminalPopupViewController else { return }
+                guard let popupVC = self.storyboard?.instantiateViewController(withIdentifier: "TerminalConnectionPopupViewController") as? TerminalPropertyPopupViewController else { return }
                 popupVC.modalPresentationStyle = .overFullScreen
-                self.present(popupVC, animated: false)
-                
+                popupVC.vm = self.vm
+                self.presentedViewController?.present(popupVC, animated: false)
             case .CONNECTED:
                 self.presentedViewController?.dismiss(animated: false)
                 
@@ -171,7 +171,10 @@ class TerminalViewController: UIViewController {
     @objc func buttonActionHandler(_ sender: UIButton) {
         switch sender {
         case selectPropertiesButton:
-            return
+            guard let popupVC = self.storyboard?.instantiateViewController(withIdentifier: "TerminalPropertyPopupViewController") as? TerminalPropertyPopupViewController else { return }
+            popupVC.modalPresentationStyle = .overFullScreen
+            popupVC.vm = self.vm
+            self.present(popupVC, animated: false)
         case sendCommandButton:
             self.vm.sendCommand(self.commandTextField.text)
             self.commandTextField.text = ""

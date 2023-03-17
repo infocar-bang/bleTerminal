@@ -16,8 +16,10 @@ class TerminalViewModel: BaseViewModel {
     var responseContent: Observable<String> = Observable("")
     var isAutoScroll: Observable<Bool> = Observable(false)
     
+    var serviceProperty: Observable<[ServiceProperty]> = Observable([])
+    
     let peer: Peer
-    var characteristics: [CBCharacteristic] = []
+    var writeCharacteristics: [CBCharacteristic] = []
     var receivedString: String = ""
     
     init(peer: Peer) {
@@ -58,9 +60,11 @@ class TerminalViewModel: BaseViewModel {
                 return
             }
             guard let characteristics = characteristics else { return }
-            self.characteristics.append(contentsOf: characteristics)
             characteristics.forEach { characteristic in
-                self.peer.peripheral.setNotifyValue(true, for: characteristic)
+                let service = ServiceProperty(characteristic: characteristic, isSelected: false)
+                if self.serviceProperty.value.contains(service) == false {
+                    self.serviceProperty.value.append(service)
+                }
             }
         }
         
@@ -87,6 +91,10 @@ class TerminalViewModel: BaseViewModel {
         self.receivedDataType.value = type
     }
     
+    func changeAutoScrollOption() {
+        self.isAutoScroll.value = !self.isAutoScroll.value
+    }
+    
     func connectToPeer() {
         print(#file, #function, "connect")
         self.connectionState.value = .CONNECTING
@@ -98,8 +106,26 @@ class TerminalViewModel: BaseViewModel {
         self.bleManager.disconnect(from: self.peer.peripheral)
     }
     
-    func changeAutoScrollOption() {
-        self.isAutoScroll.value = !self.isAutoScroll.value
+    func getServiceOfPeer() {
+        self.peer.peripheral.discoverServices(nil)
+    }
+    
+    func changeSelectionProperty(property: ServiceProperty) {
+        property.isSelected = !property.isSelected
+        
+        switch property.role {
+        case "Read":
+            self.peer.peripheral.setNotifyValue(property.isSelected, for: property.characteristic)
+        case "Write":
+            if property.isSelected {
+                self.writeCharacteristics.append(property.characteristic)
+            } else {
+                guard let index = self.writeCharacteristics.firstIndex(of: property.characteristic) else { return }
+                self.writeCharacteristics.remove(at: index)
+            }
+        default: return
+        }
+        
     }
     
     func sendCommand(_ command: String?) {
@@ -110,22 +136,13 @@ class TerminalViewModel: BaseViewModel {
         guard trimmedCommand.isEmpty == false,
               let data = trimmedCommand.data(using: .utf8) else { return }
         
-        // TODO: Charateristic 선택 화면 구현
-        let writeUUID = CBUUID(string: "FFF2")
-        var writeCharacteristic: CBCharacteristic?
-        self.characteristics.forEach { characteristic in
-            if characteristic.uuid == writeUUID {
-                writeCharacteristic = characteristic
-            }
-        }
-        if writeCharacteristic == nil { return }
-        
         // TerminalViewController의 TableView에 노출되는 보낸 명령어 리스트 추가
         self.commands.value.append(command)
         
         // Write Command
-        self.peer.peripheral.writeValue(data, for: writeCharacteristic!, type: .withResponse)
-        self.peer.peripheral.delegate = self.bleManager
+        self.writeCharacteristics.forEach { characteristic in
+            self.peer.peripheral.writeValue(data, for: characteristic, type: .withResponse)
+        }
     }
     
     private func checkEndBytes(data: Data) -> Bool {
