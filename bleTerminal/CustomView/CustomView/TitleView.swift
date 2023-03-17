@@ -29,7 +29,7 @@ class TitleView: UIView {
     var onDidTapScanButton: (() -> Void)?
     var onDidTapStopButton: (() -> Void)?
     var onDidTapDataTypeButton: ((ReceivedDataType) -> Void)?
-    var onDidTapMenuButton: (() -> Void)?
+    var onDidTapClearButton: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -89,7 +89,10 @@ class TitleView: UIView {
             self.dataTypeButton.menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: dataTypeItems)
             
             let menuItems = [
-                UIAction(title: "Clear", handler: { _ in }),
+                UIAction(title: "Clear", handler: { [weak self] _ in
+                    guard let self = self else { return }
+                    self.onDidTapClearButton?()
+                }),
                 UIAction(title: "Settings", handler: { _ in }),
                 UIAction(title: "Send Log file", handler: { _ in }),
                 UIAction(title: "View More", handler: { _ in })

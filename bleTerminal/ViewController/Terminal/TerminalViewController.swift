@@ -83,6 +83,11 @@ class TerminalViewController: UIViewController {
             self.vm.setReceivedDataType(type)
         }
         
+        self.titleView.onDidTapClearButton = { [weak self] in
+            guard let self = self else { return }
+            self.vm.clearTerminal()
+        }
+        
         [ view, checkBoxContainer ].forEach { view in
             view?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapGestureHandler)))
         }

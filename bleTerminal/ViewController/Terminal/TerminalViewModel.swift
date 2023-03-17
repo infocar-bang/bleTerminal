@@ -159,4 +159,8 @@ class TerminalViewModel: BaseViewModel {
         
         return lastTwoBytes.elementsEqual(targetBytes)
     }
+    
+    func clearTerminal() {
+        self.responseContent.value = ""
+    }
 }
