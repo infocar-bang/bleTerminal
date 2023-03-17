@@ -37,6 +37,7 @@ class TerminalViewController: UIViewController {
         initTableViewCell()
         setBinding()
     
+        vm.getFetchData()
         vm.connectToPeer()
     }
     
@@ -144,6 +145,7 @@ class TerminalViewController: UIViewController {
         }
         
         self.vm.isAutoScroll.bind { [weak self] bool in
+            print(#function, "isAutoScroll: \(bool)")
             guard let self = self else { return }
             self.isAutoScroll = bool
             

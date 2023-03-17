@@ -87,12 +87,18 @@ class TerminalViewModel: BaseViewModel {
         }
     }
     
+    func getFetchData() {
+        self.isAutoScroll.value = UserDefaults.standard.bool(forKey: "AUTO_SCROLL")
+        print(#function, self.isAutoScroll.value)
+    }
+    
     func setReceivedDataType(_ type: ReceivedDataType) {
         self.receivedDataType.value = type
     }
     
     func changeAutoScrollOption() {
         self.isAutoScroll.value = !self.isAutoScroll.value
+        UserDefaults.standard.set(self.isAutoScroll.value, forKey: "AUTO_SCROLL")
     }
     
     func connectToPeer() {
