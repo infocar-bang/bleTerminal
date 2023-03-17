@@ -11,7 +11,7 @@ class TerminalViewController: UIViewController {
     @IBOutlet weak var titleView: TitleView!
     
     @IBOutlet weak var terminalView: UIScrollView!
-    @IBOutlet weak var terminalViewHeightContraint: NSLayoutConstraint!
+    @IBOutlet weak var terminalViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var responseTextView: UITextView!
     
     @IBOutlet weak var interactionContainer: UIView!
@@ -195,7 +195,7 @@ class TerminalViewController: UIViewController {
             if self.tableView.isHidden == false {
                 // Constraints: termialView.bottom == ineractionContainer.top
                 // termialView.height.constraint를 조절하여 interactionContainer의 위치를 keyboard 상단에 위치할 수 있도록 조절
-                self.terminalViewHeightContraint.constant = keyboardFrame.height - macroContainer.frame.height - tableView.frame.height + 10
+                self.terminalViewHeightConstraint.constant = keyboardFrame.height - macroContainer.frame.height - tableView.frame.height + 10
                 self.tableView.isHidden = true
                 self.coverView.isHidden = false
             }
@@ -203,7 +203,7 @@ class TerminalViewController: UIViewController {
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification) {
-        self.terminalViewHeightContraint.constant = 0
+        self.terminalViewHeightConstraint.constant = 0
         self.tableView.isHidden = false
         self.coverView.isHidden = true
         
